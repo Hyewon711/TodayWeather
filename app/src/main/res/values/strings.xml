@@ -58,4 +58,6 @@
         <item>@string/init_style4</item>
         <item>@string/init_style5</item>
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
