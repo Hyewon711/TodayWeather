@@ -1,5 +1,6 @@
 package com.seo.todayweather.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
@@ -55,7 +56,8 @@ class InitActivity : AppCompatActivity() {
                     // Respond to neutral button press
                 }
                 .setPositiveButton(resources.getString(R.string.init_dialog_positive)) { dialog, which ->
-                    // Respond to positive button press
+                    intent = Intent(this@InitActivity, MainActivity::class.java)
+                    startActivity(intent)
                 }
                 .show()
         }

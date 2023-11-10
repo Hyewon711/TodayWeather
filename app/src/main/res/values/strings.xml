@@ -20,7 +20,8 @@
 
     <!-- HomeFragment -->
     <string name="home_location_title">현재위치</string>
-    <string name="home_current_location">서울시 금천구 독상동</string>
+    <string name="home_current_location">서울시 금천구 독산동</string>
+    <string name="home_temp">8˚C</string>
     <string name="home_message">오늘은 깨끗하고 맑네요!</string>
     <string name="home_commend_title">이 옷 어때요?</string>
     <string name="home_content_title">오늘을 알려드려요</string>

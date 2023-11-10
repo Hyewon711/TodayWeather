@@ -5,6 +5,11 @@ import android.view.ViewGroup
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 
+// Fragment Tag
+const val HOME = "home"
+const val COMMEND = "commend"
+const val STYLE = "style"
+const val MYPAGE = "mypage"
 
 // 화면 회전시 번들에 저장하고 불러올 때 사용하는 KEY
 const val CUURRENTFRAGMENTTAG = "currentfragment"
