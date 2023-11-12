@@ -1,14 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/commend_background"
     tools:context=".view.commend.CommendFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <include
+        android:id="@+id/ly_toolbar"
+        layout="@layout/layout_toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_commend_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/home_horizontal_margin"
+        android:fontFamily="@font/pretendard_bold"
+        android:text="@string/commend_title"
+        android:textAppearance="@style/commend_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ly_toolbar" />
+
+    <com.google.android.material.card.MaterialCardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/ly_commend"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginStart="@dimen/home_horizontal_margin"
+        android:layout_marginTop="@dimen/home_horizontal_margin"
+        android:layout_marginEnd="@dimen/home_horizontal_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_commend_title"
+        card_view:cardBackgroundColor="@color/white"
+        card_view:cardCornerRadius="30dp"
+        card_view:cardElevation="5dp" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_commend_tomorrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/home_horizontal_margin"
+        android:fontFamily="@font/pretendard_bold"
+        android:text="@string/commend_tomorrow"
+        android:textAppearance="@style/commend_tomorrow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ly_commend" />
+
+    <com.google.android.material.card.MaterialCardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/ly_commend_tomorrow"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_marginStart="@dimen/home_horizontal_margin"
+        android:layout_marginTop="@dimen/home_horizontal_margin"
+        android:layout_marginEnd="@dimen/home_horizontal_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_commend_tomorrow"
+        card_view:cardBackgroundColor="@color/white"
+        card_view:cardCornerRadius="30dp"
+        card_view:cardElevation="5dp" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_commend_style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/home_horizontal_margin"
+        android:fontFamily="@font/pretendard_bold"
+        android:text="@string/commend_style_title"
+        android:textAppearance="@style/commend_tomorrow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ly_commend_tomorrow" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/home_horizontal_margin"
+        android:layout_marginTop="@dimen/home_horizontal_margin"
+        android:layout_marginEnd="@dimen/home_horizontal_margin"
+        app:layout_constraintTop_toBottomOf="@id/tv_commend_style"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

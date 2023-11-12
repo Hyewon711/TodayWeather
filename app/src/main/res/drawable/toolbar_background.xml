@@ -8,15 +8,15 @@
     >
     <group>
         <clip-path
-            android:pathData="M44 0H316C340.301 0 360 19.6995 360 44C360 68.3005 340.301 88 316 88H44C19.6995 88 0 68.3005 0 44C0 19.6995 19.6995 0 44 0Z"
+            android:pathData="M0 0H360V88H0V0Z"
             />
         <group
             android:translateX="1"
-            android:translateY="20.663"
+            android:translateY="10.332"
             android:pivotX="180"
             android:pivotY="44"
             android:scaleX="2"
-            android:scaleY="82.653"
+            android:scaleY="41.327"
             android:rotation="180"
             >
             <path

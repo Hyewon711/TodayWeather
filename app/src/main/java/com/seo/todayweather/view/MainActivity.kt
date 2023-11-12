@@ -37,4 +37,5 @@ class MainActivity : AppCompatActivity() {
     private fun initView() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
     }
+
 }

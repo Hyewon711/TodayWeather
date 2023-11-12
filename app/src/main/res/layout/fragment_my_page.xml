@@ -1,14 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.mypage.MyPageFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <include
+        android:id="@+id/ly_toolbar"
+        layout="@layout/layout_toolbar_style" />
 
-</FrameLayout>
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_user_title"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="@dimen/activity_vertical_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:background="@drawable/mypage_title"
+        android:gravity="center"
+        android:text="@string/settings_my_page"
+        android:textAppearance="@style/home_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ly_toolbar" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/iv_user"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="@dimen/home_horizontal_margin"
+        android:src="@drawable/ic_launcher_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_user_title"
+        app:shapeAppearance="@style/ShapeAppearanceOverlay.App.CornerSize50Percent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/home_horizontal_margin"
+        android:text="@string/settings_user_name"
+        android:textAppearance="@style/mypage_user_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_user" />
+
+    <Spinner
+        android:id="@+id/spinner_style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_user_name" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_system_title"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="@dimen/activity_vertical_margin"
+        android:layout_marginTop="80dp"
+        android:background="@drawable/mypage_title"
+        android:gravity="center"
+        android:text="@string/settings_my_page"
+        android:textAppearance="@style/home_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/spinner_style" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_settings_tts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/settings_setting_tts"
+        android:textAppearance="@style/mypage_system_settings"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        app:layout_constraintStart_toStartOf="@id/tv_system_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_system_title" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_settings_push"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/settings_setting_push"
+        android:textAppearance="@style/mypage_system_settings"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        app:layout_constraintStart_toStartOf="@id/tv_settings_tts"
+        app:layout_constraintTop_toBottomOf="@id/tv_settings_tts" />
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/switch_tts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="false"
+        app:trackTint="@color/primary_01"
+        android:layout_marginEnd="@dimen/activity_vertical_margin"
+        app:layout_constraintTop_toTopOf="@id/tv_settings_tts"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/tv_settings_tts" />
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/switch_push"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="false"
+        app:trackTint="@color/primary_01"
+        android:layout_marginEnd="@dimen/activity_vertical_margin"
+        app:layout_constraintTop_toTopOf="@id/tv_settings_push"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/tv_settings_push" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_logout"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="@dimen/activity_vertical_margin"
+        android:layout_marginTop="80dp"
+        android:background="@drawable/mypage_title"
+        android:gravity="center"
+        android:text="@string/settings_logout"
+        android:textAppearance="@style/home_content"
+        app:layout_constraintTop_toBottomOf="@id/tv_settings_push"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

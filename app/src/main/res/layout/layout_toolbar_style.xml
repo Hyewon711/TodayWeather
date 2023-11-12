@@ -4,7 +4,7 @@
     android:id="@+id/ly_toolbar"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
-    android:background="@android:color/transparent">
+    android:background="@drawable/toolbar_background">
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
@@ -14,6 +14,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+    <ImageView
+        android:id="@+id/iv_more"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:src="@drawable/ic_menu"
+        android:layout_marginStart="@dimen/home_horizontal_margin"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_write"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:src="@drawable/ic_menu"
+        android:layout_marginEnd="@dimen/home_horizontal_margin"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/iv_menu"
         app:layout_constraintBottom_toBottomOf="parent" />
     <ImageView
         android:id="@+id/iv_menu"
