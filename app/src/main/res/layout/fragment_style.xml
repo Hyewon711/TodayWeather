@@ -6,9 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".view.style.StyleFragment">
 
-    <include
-        android:id="@+id/ly_toolbar"
-        layout="@layout/layout_toolbar_style"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_style"

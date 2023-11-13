@@ -9,14 +9,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     }
 
     private fun initView() {
-        with(binding) {
-            lyToolbar.setToolbarMenu("", false) {
 
-            }
-
-            tvMyLocation.setOnAvoidDuplicateClick {
-
-            }
-        }
     }
 }

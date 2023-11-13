@@ -6,9 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".view.mypage.MyPageFragment">
 
-    <include
-        android:id="@+id/ly_toolbar"
-        layout="@layout/layout_toolbar_style" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_user_title"

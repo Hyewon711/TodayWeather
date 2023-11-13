@@ -35,6 +35,8 @@
 
     <!-- StyleFragment -->
     <string name="style_toolbar_title">오늘의 스타일</string>
+    <string name="style_item_title">오늘처럼 맑은 날엔</string>
+    <string name="style_item_author">서혜원</string>
 
     <!-- Style Item -->
     <string name="post_author">작성자</string>
