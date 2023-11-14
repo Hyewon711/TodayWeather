@@ -65,6 +65,11 @@
         <item>@string/init_style5</item>
     </string-array>
 
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="drawer_open">Open Drawer</string>
+    <string name="drawer_close">Close Drawer</string>
     <!-- nav menu -->
     <string name="nav_home">홈</string>
     <string name="nav_commend">기온별 옷 추천</string>

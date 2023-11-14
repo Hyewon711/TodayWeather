@@ -4,11 +4,11 @@
         <!-- status bar settings -->
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:enforceStatusBarContrast" tools:targetApi="q">false</item>
-
         <item name="materialAlertDialogTheme">@style/ThemeOverlay.App.MaterialAlertDialog</item>
-
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
+    <!-- toolbar -->
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.TodayWeather" parent="Base.Theme.TodayWeather" />
 
