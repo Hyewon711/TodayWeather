@@ -3,13 +3,13 @@ package com.seo.todayweather.view
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.core.view.WindowCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 import com.seo.todayweather.R
 import com.seo.todayweather.databinding.ActivityMainBinding
@@ -27,10 +27,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     val TAG: String = "로그"
     private lateinit var binding: ActivityMainBinding
     private lateinit var currentFragmentTag: String
-    private lateinit var toolbar: Toolbar
-    private lateinit var drawerToggle: ActionBarDrawerToggle
     private lateinit var drawerLayout: DrawerLayout
-    private lateinit var navView: NavigationView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater).also {
@@ -45,12 +43,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 .commitAllowingStateLoss()
             currentFragmentTag = HOME // 현재 보고 있는 fragment의 Tag
         }
-
         initView()
-        initNavigation()
+        initNavigation() // tab layout을 하단에서 동작할 수 있도록 변경하기 (?attr/actionBarSize, )
     }
 
     // 화면을 회전해도 새로운 fragment를 생산하지 않고 현재 보고 있는 fragment를 불러오기 위해 tag를 저장한다.
+    // 피드백 : 세로모드 먼저 구현하고, 가로모드를 작업 (같이 작업하면 어려울 수 있음
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putString(CUURRENTFRAGMENTTAG, currentFragmentTag)
@@ -63,37 +61,34 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private fun initNavigation() {
         with(binding) {
             drawerLayout = lyDrawer
-//            setSupportActionBar(toolbar)
-//            supportActionBar?.apply {
-//                setDisplayHomeAsUpEnabled(true)
-//                setHomeAsUpIndicator(R.drawable.ic_menu) // 메뉴 아이콘 설정
-//            }
-
-            tvTitle.setOnClickListener {
-                Log.d(TAG, "initNavigation: 클릭")
-                // 클릭 이벤트 처리
-                if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-                    drawerLayout.closeDrawer(GravityCompat.START)
-                } else {
-                    drawerLayout.openDrawer(GravityCompat.START)
-                }
-            }
-
+//            setSupportActionBar(lyToolbar.toolbar)
+            val navHostFragment =
+                supportFragmentManager.findFragmentById(R.id.container) as NavHostFragment
+            val navController = navHostFragment.navController
+//            val appBarConfiguration = AppBarConfiguration(navController.graph)
+            navigation.setupWithNavController(navController)
+//            setupActionBarWithNavController(navController, appBarConfiguration)
             navigation.setNavigationItemSelectedListener(this@MainActivity)
 
         }
+
     }
+
+//    override fun onSupportNavigateUp(): Boolean {
+//        return navController.navigateUp() || super.onSupportNavigateUp()
+//    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
-                if (drawerToggle.onOptionsItemSelected(item)) {
-                    return true
+                if (binding.lyDrawer.isDrawerOpen(GravityCompat.START)) {
+                    binding.lyDrawer.closeDrawer(GravityCompat.START)
                 } else {
-                    drawerLayout.openDrawer(GravityCompat.START)
+                    binding.lyDrawer.openDrawer(GravityCompat.START)
                 }
                 return true
             }
+
             else -> return super.onOptionsItemSelected(item)
         }
     }
@@ -118,8 +113,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             supportFragmentManager
                 .beginTransaction()
                 .hide(supportFragmentManager.findFragmentByTag(currentFragmentTag)!!)
-                .add(binding.container.id, fragment, tag)
-                .commitAllowingStateLoss()
+                .add(binding.container.id, fragment, tag) // 피드백 : hide, add 대신 .replace
+                .commitAllowingStateLoss() //피드백 : .commit()
 
         } else { // Tag가 있을 때
             // 먼저 currentFragmentTag에 저장된 '이전 fragment Tag'를 활용해 이전 fragment를 hide 시킨다.
@@ -128,7 +123,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 .beginTransaction()
                 .hide(supportFragmentManager.findFragmentByTag(currentFragmentTag)!!)
                 .show(supportFragmentManager.findFragmentByTag(tag)!!)
-                .commitAllowingStateLoss()
+                .commitAllowingStateLoss() // 피드백 : replace 로 바꾸기
         }
         // currentFragmentTag에 '현재 fragment Tag' "first"를 저장한다.
         currentFragmentTag = tag

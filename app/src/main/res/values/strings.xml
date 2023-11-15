@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">TodayWeather</string>
+    <string name="home_fragment">HOME</string>
+    <string name="commend_fragment">COMMEND</string>
+    <string name="style_fragment">STYLE</string>
+    <string name="mypage_fragment">MYPAGE</string>
+
 
     <!-- Init Activity -->
     <string name="init_title">선호하는 스타일을 선택해주세요</string>
@@ -75,4 +80,6 @@
     <string name="nav_commend">기온별 옷 추천</string>
     <string name="nav_style">오늘의 스타일</string>
     <string name="nav_mypage">마이페이지</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

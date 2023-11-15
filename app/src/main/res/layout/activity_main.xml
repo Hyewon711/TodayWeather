@@ -5,6 +5,9 @@
     android:id="@+id/ly_drawer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clickable="true"
+    android:fitsSystemWindows="true"
+    android:focusable="true"
     tools:context=".view.MainActivity">
 
     <RelativeLayout
@@ -13,74 +16,19 @@
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/container"
+            android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            app:defaultNavHost="true"
+            app:navGraph="@navigation/nav_graph" />
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:layout_marginTop="@dimen/home_horizontal_margin"
-            android:clickable="true"
-            android:focusable="true"
-            android:elevation="20dp"
-            app:layout_scrollFlags="scroll|enterAlways">
+        <!--        <include-->
+        <!--            android:id="@+id/ly_toolbar"-->
+        <!--            layout="@layout/layout_toolbar"-->
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clickable="true"
-                android:focusable="true">
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Test"
-                    android:textColor="@color/black"
-                    android:textAppearance="@style/home_location"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/iv_more"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:src="@drawable/ic_more"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/iv_write"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:src="@drawable/ic_write"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/iv_menu"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/iv_menu"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:src="@drawable/ic_menu"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.appcompat.widget.Toolbar>
+        <!--            android:focusable="true"-->
+        <!--            android:clickable="true"-->
+        <!--            />-->
     </RelativeLayout>
     <!-- Drawer layout -->
 
@@ -89,6 +37,9 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        android:clickable="true"
         android:fitsSystemWindows="true"
-        app:menu="@menu/nav_menu" />
+        android:focusable="true"
+        app:menu="@menu/nav_menu"
+        app:navGraph="@navigation/nav_graph" />
 </androidx.drawerlayout.widget.DrawerLayout>

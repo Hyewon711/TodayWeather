@@ -7,6 +7,12 @@
     android:background="@drawable/commend_background"
     tools:context=".view.commend.CommendFragment">
 
+    <include
+        android:id="@+id/ly_toolbar"
+        layout="@layout/layout_toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <View
         android:layout_width="match_parent"

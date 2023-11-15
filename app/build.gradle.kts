@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -41,6 +42,22 @@ android {
 dependencies {
     // SplashScreen
     implementation("androidx.core:core-splashscreen:1.1.0-alpha02")
+    // Jetpack Navigation
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.4")
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.4")
+
+    // Firebase
+    implementation(platform("com.google.firebase:firebase-bom:32.5.0"))
+    implementation("com.google.firebase:firebase-analytics")
+
+    // Kakao
+    implementation ("com.kakao.sdk:v2-all:2.18.0") // 전체 모듈 설치, 2.11.0 버전부터 지원
+    implementation ("com.kakao.sdk:v2-user:2.18.0") // 카카오 로그인
+    implementation ("com.kakao.sdk:v2-talk:2.18.0") // 친구, 메시지(카카오톡)
+    implementation ("com.kakao.sdk:v2-share:2.18.0") // 메시지(카카오톡 공유)
+    implementation ("com.kakao.sdk:v2-friend:2.18.0") // 카카오톡 소셜 피커, 리소스 번들 파일 포함
+    implementation ("com.kakao.sdk:v2-navi:2.18.0") // 카카오내비
+    implementation ("com.kakao.sdk:v2-cert:2.18.0") // 카카오 인증서비스
 
     // RxBinding
     implementation("com.jakewharton.rxbinding4:rxbinding:4.0.0")
@@ -54,6 +71,8 @@ dependencies {
     implementation("androidx.annotation:annotation:1.6.0")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
+    implementation("com.google.firebase:firebase-firestore:24.9.1")
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.5")
 
     // FlowBinding
     val flowbinding_version = "1.2.0"
