@@ -126,16 +126,41 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ly_commend" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_home"
+        <LinearLayout
+            android:id="@+id/ly_add_view1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
             android:layout_marginStart="@dimen/home_horizontal_margin"
             android:layout_marginTop="@dimen/home_vertical_margin"
             android:layout_marginEnd="@dimen/home_horizontal_margin"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_content_title"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_content_title" />
+            app:layout_constraintEnd_toEndOf="parent"
+            android:orientation="vertical"/>
+
+        <LinearLayout
+            android:id="@+id/ly_add_view2"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginStart="@dimen/home_horizontal_margin"
+            android:layout_marginTop="@dimen/home_vertical_margin"
+            android:layout_marginEnd="@dimen/home_horizontal_margin"
+            app:layout_constraintTop_toBottomOf="@id/ly_add_view1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:orientation="horizontal"/>
+
+        <LinearLayout
+            android:id="@+id/ly_add_view3"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginStart="@dimen/home_horizontal_margin"
+            android:layout_marginTop="@dimen/home_vertical_margin"
+            android:layout_marginEnd="@dimen/home_horizontal_margin"
+            app:layout_constraintTop_toBottomOf="@id/ly_add_view2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:orientation="vertical"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
