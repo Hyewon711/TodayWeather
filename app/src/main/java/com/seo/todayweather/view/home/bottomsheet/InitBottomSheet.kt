@@ -1,4 +1,4 @@
-package com.seo.todayweather.view
+package com.seo.todayweather.view.home.bottomsheet
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,11 +11,11 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.seo.todayweather.databinding.InitBottomSheetBinding
 
-class InitBottomSheet: BottomSheetDialogFragment() {
+class InitBottomSheet : BottomSheetDialogFragment() {
     private lateinit var binding: InitBottomSheetBinding
     private lateinit var selectChip: ChipGroup
     private lateinit var getChipOrder: Button
-    private val selectedChipsOrder = mutableListOf<String>()
+    var chipSelectedListener: ChipSelectedListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,7 +28,7 @@ class InitBottomSheet: BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        val selectedChipsOrder = mutableListOf<String>()
         with(binding) {
             selectChip = chipGroup
             getChipOrder = getOrderButton
@@ -47,9 +47,15 @@ class InitBottomSheet: BottomSheetDialogFragment() {
         }
 
         getChipOrder.setOnClickListener {
-            Toast.makeText(activity, "$selectedChipsOrder", Toast.LENGTH_SHORT).show()
+            // Filter out unchecked chips before notifying the listener
+            val selectedChips = selectedChipsOrder.toList()
+            onChipSelected(selectedChips)
+            Toast.makeText(activity, "$selectedChips", Toast.LENGTH_SHORT).show()
             dismiss()
         }
     }
 
+    private fun onChipSelected(chips: List<String>) {
+        chipSelectedListener?.onChipSelected(chips)
+    }
 }

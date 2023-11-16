@@ -2,167 +2,204 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_Layout"
+    android:name="com.seo.todayweather.view.home.homeFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:name="com.seo.todayweather.view.home.homeFragment"
+    android:background="@color/white"
     tools:context=".view.home.HomeFragment">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/ly_weather"
             android:layout_width="match_parent"
-            android:layout_height="400dp"
-            android:background="@drawable/home_weather_sunny"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="match_parent">
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_guide_location"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/pretendard_medium"
-                android:text="@string/home_location_title"
-                android:textAppearance="@style/home_content"
-                app:layout_constraintBottom_toTopOf="@id/tv_my_location"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_my_location"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/home_vertical_margin"
-                android:fontFamily="@font/pretendard_bold"
-                android:text="@string/home_current_location"
-                android:textAppearance="@style/home_location"
-                app:layout_constraintBottom_toTopOf="@id/iv_weather"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <ImageView
-                android:id="@+id/iv_weather"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:src="@drawable/ic_weather_sunny"
-                app:layout_constraintBottom_toBottomOf="parent"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/ly_weather"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:background="@drawable/home_weather_sunny"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_guide_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:text="@string/home_location_title"
+                    android:textAppearance="@style/home_content"
+                    app:layout_constraintBottom_toTopOf="@id/tv_my_location"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_my_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/home_vertical_margin"
+                    android:fontFamily="@font/pretendard_bold"
+                    android:text="@string/home_current_location"
+                    android:textAppearance="@style/home_location"
+                    app:layout_constraintBottom_toTopOf="@id/iv_weather"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <ImageView
+                    android:id="@+id/iv_weather"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/ic_weather_sunny"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_temp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/home_vertical_margin"
+                    android:fontFamily="@font/pretendard_bold"
+                    android:text="@string/home_temp"
+                    android:textAppearance="@style/home_location"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_weather" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_weather_message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/home_vertical_margin"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:text="@string/home_message"
+                    android:textAppearance="@style/home_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_temp" />
+
+                <include
+                    android:id="@+id/ly_toolbar"
+                    layout="@layout/layout_toolbar"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_temp"
+                android:id="@+id/tv_commend_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/home_vertical_margin"
                 android:fontFamily="@font/pretendard_bold"
-                android:text="@string/home_temp"
-                android:textAppearance="@style/home_location"
+                android:text="@string/home_commend_title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/iv_weather" />
+                app:layout_constraintTop_toBottomOf="@id/ly_weather" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/ly_commend"
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginStart="@dimen/home_horizontal_margin"
+                android:layout_marginTop="@dimen/home_vertical_margin"
+                android:layout_marginEnd="@dimen/home_horizontal_margin"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_commend_title"
+                card_view:cardBackgroundColor="@color/card_background"
+                card_view:cardCornerRadius="30dp"
+                card_view:cardElevation="5dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/comment_item1"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                         android:src="@drawable/ic_clothes_hoodie"
+                        card_view:layout_constraintBottom_toBottomOf="parent"
+                        card_view:layout_constraintTop_toTopOf="parent"
+                        card_view:layout_constraintStart_toStartOf="parent"
+                        card_view:layout_constraintEnd_toStartOf="@id/comment_item2"/>
+
+                    <ImageView
+                        android:id="@+id/comment_item2"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/ic_clothes_jean"
+                        card_view:layout_constraintStart_toStartOf="parent"
+                        card_view:layout_constraintEnd_toEndOf="parent"
+                        card_view:layout_constraintBottom_toBottomOf="parent"
+                        card_view:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/comment_item3"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/ic_clothes_jacket"
+                        card_view:layout_constraintStart_toEndOf="@id/comment_item2"
+                        card_view:layout_constraintTop_toTopOf="parent"
+                        card_view:layout_constraintEnd_toEndOf="parent"
+                        card_view:layout_constraintBottom_toBottomOf="parent"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_weather_message"
+                android:id="@+id/tv_content_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/home_vertical_margin"
-                android:fontFamily="@font/pretendard_medium"
-                android:text="@string/home_message"
-                android:textAppearance="@style/home_content"
+                android:fontFamily="@font/pretendard_bold"
+                android:text="@string/home_content_title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_temp" />
+                app:layout_constraintTop_toBottomOf="@id/ly_commend" />
 
-            <include
-                android:id="@+id/ly_toolbar"
-                layout="@layout/layout_toolbar"
+            <LinearLayout
+                android:id="@+id/ly_add_view1"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="@dimen/home_vertical_margin"
+                android:clipChildren="false"
+                android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toBottomOf="@id/tv_content_title" />
+
+            <LinearLayout
+                android:id="@+id/ly_add_view2"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:clipChildren="false"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ly_add_view1" />
+
+            <LinearLayout
+                android:id="@+id/ly_add_view3"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginStart="@dimen/home_horizontal_margin"
+                android:layout_marginTop="@dimen/home_vertical_margin"
+                android:layout_marginEnd="@dimen/home_horizontal_margin"
+                android:clipChildren="false"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ly_add_view2" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_commend_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/home_vertical_margin"
-            android:fontFamily="@font/pretendard_bold"
-            android:text="@string/home_commend_title"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ly_weather" />
-
-        <com.google.android.material.card.MaterialCardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/ly_commend"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginStart="@dimen/home_horizontal_margin"
-            android:layout_marginTop="@dimen/home_vertical_margin"
-            android:layout_marginEnd="@dimen/home_horizontal_margin"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_commend_title"
-            card_view:cardBackgroundColor="@color/card_background"
-            card_view:cardCornerRadius="30dp"
-            card_view:cardElevation="5dp" />
-
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_content_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/home_vertical_margin"
-            android:fontFamily="@font/pretendard_bold"
-            android:text="@string/home_content_title"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ly_commend" />
-
-        <LinearLayout
-            android:id="@+id/ly_add_view1"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginStart="@dimen/home_horizontal_margin"
-            android:layout_marginTop="@dimen/home_vertical_margin"
-            android:layout_marginEnd="@dimen/home_horizontal_margin"
-            app:layout_constraintTop_toBottomOf="@id/tv_content_title"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:orientation="vertical"/>
-
-        <LinearLayout
-            android:id="@+id/ly_add_view2"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginStart="@dimen/home_horizontal_margin"
-            android:layout_marginTop="@dimen/home_vertical_margin"
-            android:layout_marginEnd="@dimen/home_horizontal_margin"
-            app:layout_constraintTop_toBottomOf="@id/ly_add_view1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:orientation="horizontal"/>
-
-        <LinearLayout
-            android:id="@+id/ly_add_view3"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginStart="@dimen/home_horizontal_margin"
-            android:layout_marginTop="@dimen/home_vertical_margin"
-            android:layout_marginEnd="@dimen/home_horizontal_margin"
-            app:layout_constraintTop_toBottomOf="@id/ly_add_view2"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:orientation="vertical"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

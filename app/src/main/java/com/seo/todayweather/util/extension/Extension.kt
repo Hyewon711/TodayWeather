@@ -1,6 +1,8 @@
 package com.seo.todayweather.util.extension
 
+import androidx.fragment.app.Fragment
 import android.view.View
+import android.view.ViewGroup
 import com.seo.todayweather.util.common.CLICK_INTERVAL_TIME
 import com.seo.todayweather.util.common.mainScope
 import kotlinx.coroutines.Dispatchers
@@ -10,7 +12,13 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import reactivecircus.flowbinding.android.view.clicks
-
+fun ViewGroup.changeFragment(from: Fragment, to: Fragment) {
+    from.childFragmentManager
+        .beginTransaction()
+        .replace(this.id, to)
+        .addToBackStack(null)
+        .commit()
+}
 
 fun View.setOnAvoidDuplicateClickFlow(actionInMainThread: () -> Unit) {
     this.clicks()

@@ -6,6 +6,7 @@ import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
 import com.seo.todayweather.R
 import com.seo.todayweather.databinding.ActivityMainBinding
+import com.seo.todayweather.util.common.CUURRENTFRAGMENTTAG
 import com.seo.todayweather.util.common.HOME
 import com.seo.todayweather.view.home.HomeFragment
 
@@ -31,10 +32,10 @@ class MainActivity : AppCompatActivity() {
         initView()
     }
 
-//    override fun onSaveInstanceState(outState: Bundle) {
-//        super.onSaveInstanceState(outState)
-//        outState.putString(CUURRENTFRAGMENTTAG, currentFragmentTag)
-//    }
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(CUURRENTFRAGMENTTAG, currentFragmentTag)
+    }
 
     private fun initView() {
         WindowCompat.setDecorFitsSystemWindows(window, false)

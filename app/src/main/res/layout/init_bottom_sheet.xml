@@ -1,6 +1,6 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/rate_bottom_sheet"
+    android:id="@+id/init_bottom_sheet"
     style="@style/Widget.Material3.BottomSheet"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -17,7 +17,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_centerInParent="true"
             app:singleSelection="false">
 
@@ -26,50 +25,51 @@
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Chip 1" />
+                android:text="미세먼지" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip2"
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Chip 2" />
+                android:text="자외선 지수" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip3"
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Chip 3" />
+                android:text="바람" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip4"
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Chip 4" />
+                android:text="습도" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip5"
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Chip 5" />
+                android:text="대기질" />
             <!-- Add more chips as needed -->
 
         </com.google.android.material.chip.ChipGroup>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/getOrderButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/chipGroup"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="16dp"
+            android:background="@drawable/mypage_title"
+            app:layout_constraintTop_toBottomOf="@id/chipGroup"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:text="Get Order" />
+            android:text="위젯 설정"
+            style="@style/Widget.MaterialComponents.Button"
+            android:textAppearance="@style/home_content"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
