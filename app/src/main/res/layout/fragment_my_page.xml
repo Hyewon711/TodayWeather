@@ -67,7 +67,7 @@
         android:layout_marginTop="80dp"
         android:background="@drawable/mypage_title"
         android:gravity="center"
-        android:text="@string/settings_my_page"
+        android:text="@string/settings_system_setting"
         android:textAppearance="@style/home_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/spinner_style" />

@@ -4,12 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.seo.todayweather.data.Post
+import com.seo.todayweather.databinding.ItemHomeBinding
 import com.seo.todayweather.databinding.ItemStyleBinding
 
 class StyleRecyclerAdapter(private var items: List<Post>) :
     RecyclerView.Adapter<StyleRecyclerAdapter.PostInfo>() {
 
-    inner class PostInfo(val itemBinding: ItemStyleBinding) :
+    inner class PostInfo(val itemBinding: ItemHomeBinding) :
         RecyclerView.ViewHolder(itemBinding.root) {
 
     }
@@ -19,7 +20,7 @@ class StyleRecyclerAdapter(private var items: List<Post>) :
         viewType: Int
     ): PostInfo {
         val binding =
-            ItemStyleBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemHomeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return PostInfo(binding)
     }
 
@@ -31,10 +32,10 @@ class StyleRecyclerAdapter(private var items: List<Post>) :
 
         with(holder.itemBinding) {
             postInfo.title.let {
-                tvTitle.text = it
+                tvTest.text = it
             }
             postInfo.content.let {
-                tvAuthor.text = it
+//                tvAuthor.text = it
             }
         }
     }

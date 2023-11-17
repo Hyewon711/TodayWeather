@@ -16,7 +16,5 @@ dependencyResolutionManagement {
     }
 }
 
-
 rootProject.name = "TodayWeather"
 include(":app")
- 

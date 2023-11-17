@@ -1,6 +1,8 @@
 package com.seo.todayweather.view
 
 import android.os.Bundle
+import android.util.Log
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
@@ -9,11 +11,17 @@ import com.seo.todayweather.databinding.ActivityMainBinding
 import com.seo.todayweather.util.common.CUURRENTFRAGMENTTAG
 import com.seo.todayweather.util.common.HOME
 import com.seo.todayweather.view.home.HomeFragment
+import com.seo.todayweather.viewmodel.WeatherViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     val TAG: String = "로그"
     private lateinit var binding: ActivityMainBinding
     private lateinit var currentFragmentTag: String
+    // 뷰모델 생성
+    private val viewModel by viewModels<WeatherViewModel>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +38,16 @@ class MainActivity : AppCompatActivity() {
             currentFragmentTag = HOME // 현재 보고 있는 fragment의 Tag
         }
         initView()
+
+        viewModel.getWeather("JSON",14,1,
+            20231115,1100,"63","89")
+
+        viewModel.weatherResponse.observe(this){
+            for(i in it.body()?.response!!.body.items.item){
+                Log.d(TAG, "$i")
+            }
+        }
+
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
