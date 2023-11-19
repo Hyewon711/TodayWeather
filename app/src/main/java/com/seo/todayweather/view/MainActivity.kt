@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity() {
     val TAG: String = "로그"
     private lateinit var binding: ActivityMainBinding
     private lateinit var currentFragmentTag: String
+
     // 뷰모델 생성
     private val viewModel by viewModels<WeatherViewModel>()
 
@@ -39,12 +40,19 @@ class MainActivity : AppCompatActivity() {
         }
         initView()
 
-        viewModel.getWeather("JSON",14,1,
-            20231115,1100,"63","89")
+        viewModel.getWeather(
+            "JSON", 14, 1,
+            20231119, 1100, "63", "89"
+        )
 
-        viewModel.weatherResponse.observe(this){
-            for(i in it.body()?.response!!.body.items.item){
-                Log.d(TAG, "$i")
+        viewModel.weatherResponse.observe(this) {
+            if (it.body() != null) {
+                Log.d(TAG, "${it.body()}")
+                for (i in it.body()?.response!!.body.items.item) {
+                    Log.d(TAG, "$i")
+                }
+            } else {
+                Log.d(TAG, "onCreate: Null 반환")
             }
         }
 

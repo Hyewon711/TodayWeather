@@ -2,7 +2,9 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.gms.google-services")
-    id("com.google.dagger.hilt.android")
+    id("kotlin-kapt")
+    id("dagger.hilt.android.plugin")
+    id ("com.google.dagger.hilt.android")
 }
 
 android {
@@ -29,11 +31,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
     buildFeatures {
         viewBinding = true
@@ -57,8 +59,10 @@ dependencies {
     implementation ("com.squareup.okhttp3:logging-interceptor:4.9.0")
 
     // DI
-    implementation ("com.google.dagger:dagger-compiler:2.48") // Dagger compiler
-    ksp ("com.google.dagger:hilt-compiler:2.48")   // Hilt compiler
+    implementation("com.google.dagger:hilt-android:2.48.1")
+    annotationProcessor ("com.google.dagger:hilt-android-compiler:2.48.1")
+    annotationProcessor ("com.google.dagger:dagger-compiler:2.48.1") // Dagger compiler
+    kapt ("com.google.dagger:hilt-android-compiler:2.48.1")
 
     // Kakao
     implementation ("com.kakao.sdk:v2-all:2.18.0") // 전체 모듈 설치, 2.11.0 버전부터 지원

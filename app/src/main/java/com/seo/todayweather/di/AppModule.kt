@@ -13,7 +13,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
-
     @Provides
     @Singleton
     fun provideRetrofit() : Retrofit =
@@ -21,7 +20,6 @@ object AppModule {
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-
     @Provides
     @Singleton
     fun provideWeatherApi(retrofit : Retrofit) : WeatherApi =
