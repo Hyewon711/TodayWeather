@@ -6,6 +6,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
+import com.kakao.sdk.common.util.Utility
 import com.seo.todayweather.R
 import com.seo.todayweather.databinding.ActivityMainBinding
 import com.seo.todayweather.util.common.CUURRENTFRAGMENTTAG
@@ -29,7 +30,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater).also {
             setContentView(R.layout.activity_main)
         }
-
+        val keyHash = Utility.getKeyHash(this)
+        Log.e("로그", keyHash)
         // 화면이 최초 실행 되었을 때 Fragment Manager를 호출
         if (savedInstanceState == null) {
             supportFragmentManager
