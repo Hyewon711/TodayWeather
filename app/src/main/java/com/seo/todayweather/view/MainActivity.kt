@@ -30,8 +30,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater).also {
             setContentView(R.layout.activity_main)
         }
-        val keyHash = Utility.getKeyHash(this)
-        Log.e("로그", keyHash)
         // 화면이 최초 실행 되었을 때 Fragment Manager를 호출
         if (savedInstanceState == null) {
             supportFragmentManager
@@ -43,8 +41,8 @@ class MainActivity : AppCompatActivity() {
         initView()
 
         viewModel.getWeather(
-            "JSON", 14, 1,
-            20231119, 1100, "63", "89"
+            "JSON", 5, 1,
+            20231121, 1100, "63", "89"
         )
 
         viewModel.weatherResponse.observe(this) {

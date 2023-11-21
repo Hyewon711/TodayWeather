@@ -1,20 +1,21 @@
 package com.seo.todayweather.view
 
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
 import com.kakao.sdk.auth.model.OAuthToken
-import com.kakao.sdk.common.KakaoSdk
 import com.kakao.sdk.common.model.AuthErrorCause
 import com.kakao.sdk.common.util.Utility
 import com.kakao.sdk.user.UserApiClient
 import com.seo.todayweather.databinding.ActivityLoginBinding
-import com.seo.todayweather.util.extension.setOnAvoidDuplicateClickFlow
+import com.seo.todayweather.util.common.ProjectApplication
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
@@ -27,6 +28,8 @@ class LoginActivity : AppCompatActivity() {
         val keyHash = Utility.getKeyHash(this)
         Log.e("로그", keyHash)
         installSplashScreen()
+        permissionsCheck()
+        startLocationUpdates()
         initView()
         kakaoLogin()
 
@@ -34,6 +37,30 @@ class LoginActivity : AppCompatActivity() {
 
     private fun initView() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
+    }
+
+    private fun permissionsCheck () {
+        // 위치 권한을 확인하고 요청
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
+            ActivityCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            // 위치 권한이 없으면 요청
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
+                1
+            )
+        } else {
+            Toast.makeText(this, "위치 설정을 허용해주세요", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun startLocationUpdates() {
+        // MyApplication 클래스의 메서드를 호출하여 위치 정보 업데이트 시작
+        ProjectApplication.getInstance().startLocationUpdates()
     }
 
     private fun kakaoLogin() {
