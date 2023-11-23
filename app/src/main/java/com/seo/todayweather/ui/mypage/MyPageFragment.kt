@@ -1,9 +1,9 @@
-package com.seo.todayweather.view.mypage
+package com.seo.todayweather.ui.mypage
 
 import com.seo.todayweather.base.BaseFragment
 import com.seo.todayweather.databinding.FragmentMyPageBinding
 import com.seo.todayweather.util.extension.changeFragment
-import com.seo.todayweather.view.home.HomeFragment
+import com.seo.todayweather.ui.home.HomeFragment
 
 class MyPageFragment : BaseFragment<FragmentMyPageBinding>(FragmentMyPageBinding::inflate){
     override fun onViewCreated() {

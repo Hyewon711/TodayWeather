@@ -1,4 +1,4 @@
-package com.seo.todayweather.view
+package com.seo.todayweather.ui
 
 import android.os.Bundle
 import android.util.Log
@@ -6,12 +6,11 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
-import com.kakao.sdk.common.util.Utility
 import com.seo.todayweather.R
 import com.seo.todayweather.databinding.ActivityMainBinding
 import com.seo.todayweather.util.common.CUURRENTFRAGMENTTAG
 import com.seo.todayweather.util.common.HOME
-import com.seo.todayweather.view.home.HomeFragment
+import com.seo.todayweather.ui.home.HomeFragment
 import com.seo.todayweather.viewmodel.WeatherViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -20,6 +19,7 @@ class MainActivity : AppCompatActivity() {
     val TAG: String = "로그"
     private lateinit var binding: ActivityMainBinding
     private lateinit var currentFragmentTag: String
+    private val locationViewModel: LocationViewModel by viewModels()
 
     // 뷰모델 생성
     private val viewModel by viewModels<WeatherViewModel>()
@@ -42,13 +42,13 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.getWeather(
             "JSON", 5, 1,
-            20231121, 1100, "63", "89"
+            20231123, 1100, "63", "89"
         )
 
         viewModel.weatherResponse.observe(this) {
             if (it.body() != null) {
                 Log.d(TAG, "${it.body()}")
-                for (i in it.body()?.response!!.body.items.item) {
+                it.body()?.response!!.body.items.item.forEach { i ->
                     Log.d(TAG, "$i")
                 }
             } else {

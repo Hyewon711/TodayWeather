@@ -23,6 +23,10 @@ const val CLICK_INTERVAL_TIME = 300L
 // Rx Event 텍스트 완성 시간
 const val INPUT_COMPLETE_TIME = 1000L
 
+// Location
+const val LBS_CHECK_TAG = "LBS_CHECK_TAG"
+const val LBS_CHECK_CODE = 100
+
 val defaultDispatcher = Dispatchers.Default
 val ioDispatcher = Dispatchers.IO
 val mainDispatcher = Dispatchers.Main

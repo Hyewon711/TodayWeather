@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/commend_background"
-    tools:context=".view.commend.CommendFragment">
+    tools:context=".ui.commend.CommendFragment">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"

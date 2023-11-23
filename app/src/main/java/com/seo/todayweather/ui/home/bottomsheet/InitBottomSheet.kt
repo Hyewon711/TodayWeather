@@ -1,4 +1,4 @@
-package com.seo.todayweather.view.home.bottomsheet
+package com.seo.todayweather.ui.home.bottomsheet
 
 import android.os.Bundle
 import android.view.LayoutInflater

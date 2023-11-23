@@ -1,10 +1,10 @@
-package com.seo.todayweather.view.style
+package com.seo.todayweather.ui.style
 
 import androidx.recyclerview.widget.GridLayoutManager
 import com.seo.todayweather.base.BaseFragment
 import com.seo.todayweather.data.Post
 import com.seo.todayweather.databinding.FragmentStyleBinding
-import com.seo.todayweather.view.adapter.StyleRecyclerAdapter
+import com.seo.todayweather.ui.adapter.StyleRecyclerAdapter
 
 class StyleFragment : BaseFragment<FragmentStyleBinding>(FragmentStyleBinding::inflate) {
     override fun onViewCreated() {

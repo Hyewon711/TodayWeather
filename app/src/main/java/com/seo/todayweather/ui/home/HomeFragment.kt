@@ -1,4 +1,4 @@
-package com.seo.todayweather.view.home
+package com.seo.todayweather.ui.home
 
 import android.util.Log
 import android.view.ViewGroup
@@ -11,9 +11,9 @@ import com.seo.todayweather.base.BaseFragment
 import com.seo.todayweather.databinding.FragmentHomeBinding
 import com.seo.todayweather.util.common.HOME
 import com.seo.todayweather.util.extension.changeFragment
-import com.seo.todayweather.view.commend.CommendFragment
-import com.seo.todayweather.view.home.bottomsheet.ChipSelectedListener
-import com.seo.todayweather.view.home.bottomsheet.InitBottomSheet
+import com.seo.todayweather.ui.commend.CommendFragment
+import com.seo.todayweather.ui.home.bottomsheet.ChipSelectedListener
+import com.seo.todayweather.ui.home.bottomsheet.InitBottomSheet
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate),
     ChipSelectedListener {

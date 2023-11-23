@@ -1,13 +1,13 @@
-package com.seo.todayweather.view.commend
+package com.seo.todayweather.ui.commend
 
 import androidx.recyclerview.widget.GridLayoutManager
 import com.seo.todayweather.base.BaseFragment
 import com.seo.todayweather.data.Post
 import com.seo.todayweather.databinding.FragmentCommendBinding
 import com.seo.todayweather.util.extension.changeFragment
-import com.seo.todayweather.view.adapter.StyleRecyclerAdapter
-import com.seo.todayweather.view.home.HomeFragment
-import com.seo.todayweather.view.mypage.MyPageFragment
+import com.seo.todayweather.ui.adapter.StyleRecyclerAdapter
+import com.seo.todayweather.ui.home.HomeFragment
+import com.seo.todayweather.ui.mypage.MyPageFragment
 
 class CommendFragment : BaseFragment<FragmentCommendBinding>(FragmentCommendBinding::inflate) {
     override fun onViewCreated() {

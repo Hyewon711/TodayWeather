@@ -9,7 +9,7 @@
     <fragment android:id="@+id/home_fragment"
         android:label="@string/home_fragment"
         tools:layout="@layout/fragment_home"
-        android:name="com.seo.todayweather.view.home.HomeFragment">
+        android:name="com.seo.todayweather.ui.home.HomeFragment">
         <action
             android:id="@+id/action_home_fragment_to_commend_fragment"
             app:destination="@id/commend_fragment" />
@@ -25,18 +25,18 @@
     <fragment android:id="@+id/commend_fragment"
         android:label="@string/commend_fragment"
         tools:layout="@layout/fragment_commend"
-        android:name="com.seo.todayweather.view.commend.CommendFragment"/>
+        android:name="com.seo.todayweather.ui.commend.CommendFragment"/>
 
 
     <fragment android:id="@+id/style_fragment"
         android:label="@string/style_fragment"
         tools:layout="@layout/fragment_style"
-        android:name="com.seo.todayweather.view.style.StyleFragment"/>
+        android:name="com.seo.todayweather.ui.style.StyleFragment"/>
 
 
     <fragment android:id="@+id/mypage_fragment"
         android:label="@string/mypage_fragment"
         tools:layout="@layout/fragment_my_page"
-        android:name="com.seo.todayweather.view.mypage.MyPageFragment"/>
+        android:name="com.seo.todayweather.ui.mypage.MyPageFragment"/>
 
 </navigation>

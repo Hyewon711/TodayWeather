@@ -1,4 +1,4 @@
-package com.seo.todayweather.view
+package com.seo.todayweather.ui
 
 import android.content.Intent
 import android.os.Bundle

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.style.StyleFragment">
+    tools:context=".ui.style.StyleFragment">
 
     <include
         android:id="@+id/ly_toolbar"

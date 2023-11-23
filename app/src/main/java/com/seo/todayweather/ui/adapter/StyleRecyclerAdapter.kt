@@ -1,35 +1,40 @@
-package com.seo.todayweather.view.adapter
+package com.seo.todayweather.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.seo.todayweather.data.SelectWidget
+import com.seo.todayweather.data.Post
 import com.seo.todayweather.databinding.ItemHomeBinding
 
-class HomeRecyclerAdapter(private var items: List<SelectWidget>) : RecyclerView.Adapter<HomeRecyclerAdapter.HomeInfo>() {
+class StyleRecyclerAdapter(private var items: List<Post>) :
+    RecyclerView.Adapter<StyleRecyclerAdapter.PostInfo>() {
 
-    inner class HomeInfo(val itemBinding: ItemHomeBinding) :
+    inner class PostInfo(val itemBinding: ItemHomeBinding) :
         RecyclerView.ViewHolder(itemBinding.root) {
+
     }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): HomeInfo {
+    ): PostInfo {
         val binding =
             ItemHomeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return HomeInfo(binding)
+        return PostInfo(binding)
     }
 
     override fun getItemCount(): Int = items.size
 
 
-    override fun onBindViewHolder(holder: HomeInfo, position: Int) {
-        val userSelectInfo = items[position]
+    override fun onBindViewHolder(holder: PostInfo, position: Int) {
+        val postInfo = items[position]
 
         with(holder.itemBinding) {
-            userSelectInfo.title.let{
+            postInfo.title.let {
                 tvTest.text = it
+            }
+            postInfo.content.let {
+//                tvAuthor.text = it
             }
         }
     }
