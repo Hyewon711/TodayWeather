@@ -1,13 +1,13 @@
 package com.seo.todayweather.remote.api
 
-import com.seo.todayweather.remote.api.ApiKey.Companion.API_KEY
+import com.seo.todayweather.BuildConfig
 import com.seo.todayweather.remote.model.Weather
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface WeatherApi {
-    @GET("getVilageFcst?serviceKey=$API_KEY")
+    @GET("getVilageFcst?serviceKey=${BuildConfig.KAM_KEY}")
     suspend fun getWeather(
         @Query("dataType") dataType : String,
         @Query("numOfRows") numOfRows : Int,

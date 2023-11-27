@@ -1,3 +1,6 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+import org.gradle.internal.impldep.org.junit.experimental.categories.Categories.CategoryFilter.exclude
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -5,6 +8,10 @@ plugins {
     id("kotlin-kapt")
     id("dagger.hilt.android.plugin")
     id ("com.google.dagger.hilt.android")
+}
+
+fun getApiKey(propertyKey: String): String {
+    return gradleLocalProperties(rootDir).getProperty(propertyKey)
 }
 
 android {
@@ -19,6 +26,10 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("String", "OPEN_WEATHER_KEY", getApiKey("open_weather_key"))
+        buildConfigField("String", "KAM_KEY", getApiKey("kam_key"))
+
+
     }
 
     buildTypes {
@@ -40,6 +51,11 @@ android {
     buildFeatures {
         viewBinding = true
     }
+    buildFeatures {
+        buildConfig = true
+    }
+
+
 }
 
 dependencies {
@@ -53,6 +69,7 @@ dependencies {
     implementation ("androidx.work:work-runtime-ktx:2.8.1")
 
     implementation ("com.google.android.gms:play-services-location:21.0.1")
+    implementation ("com.google.android.gms:play-services-maps:18.2.0")
 
     // Coroutine
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1")
@@ -76,6 +93,17 @@ dependencies {
     // Kakao
     implementation ("com.kakao.sdk:v2-user:2.18.0") // 카카오 로그인
 
+    //implementation group: 'gun0912.ted', name: 'tedpermission', version: '2.2.3'
+    implementation ("io.github.ParkSangGwon:tedpermission-normal:3.3.0")
+    //implementation 'androidx.preference:preference-ktx:1.2.0'
+    implementation("androidx.preference:preference-ktx:1.2.1") {
+        exclude(group = "androidx.lifecycle", module = "lifecycle-viewmodel")
+        exclude(group = "androidx.lifecycle", module = "lifecycle-viewmodel-ktx")
+    }
+
+    // Gilde
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
+
     // RxBinding
     implementation("com.jakewharton.rxbinding4:rxbinding:4.0.0")
     implementation("com.jakewharton.rxbinding4:rxbinding-material:4.0.0")
@@ -84,12 +112,9 @@ dependencies {
     implementation("com.jakewharton.rxbinding4:rxbinding-leanback:4.0.0")
     implementation("com.jakewharton.rxbinding4:rxbinding-recyclerview:4.0.0")
     implementation("com.jakewharton.rxbinding4:rxbinding-slidingpanelayout:4.0.0")
-    implementation("com.jakewharton.rxbinding4:rxbinding-viewpager2:4.0.0")
     implementation("androidx.annotation:annotation:1.6.0")
+
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
-    implementation("com.google.firebase:firebase-firestore:24.9.1")
-    implementation("androidx.navigation:navigation-ui-ktx:2.7.5")
 
     // FlowBinding
     val flowbinding_version = "1.2.0"
@@ -99,10 +124,8 @@ dependencies {
     implementation("io.github.reactivecircus.flowbinding:flowbinding-appcompat:${flowbinding_version}")
     implementation("io.github.reactivecircus.flowbinding:flowbinding-core:${flowbinding_version}")
     implementation("io.github.reactivecircus.flowbinding:flowbinding-lifecycle:${flowbinding_version}")
-    implementation("io.github.reactivecircus.flowbinding:flowbinding-navigation:${flowbinding_version}")
     implementation("io.github.reactivecircus.flowbinding:flowbinding-preference:${flowbinding_version}")
     implementation("io.github.reactivecircus.flowbinding:flowbinding-recyclerview:${flowbinding_version}")
-    implementation("io.github.reactivecircus.flowbinding:flowbinding-viewpager2:${flowbinding_version}")
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.10.0")
@@ -111,3 +134,4 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 }
+

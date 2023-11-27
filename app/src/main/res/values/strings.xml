@@ -1,10 +1,19 @@
 <resources>
     <string name="app_name">TodayWeather</string>
+    <string name="app_title_1">오늘,</string>
+    <string name="app_title_2">이옷어때</string>
     <string name="home_fragment">HOME</string>
     <string name="commend_fragment">COMMEND</string>
     <string name="style_fragment">STYLE</string>
     <string name="mypage_fragment">MYPAGE</string>
+    <string name="celsius">℃</string>
 
+    <!-- API URL -->
+    <string name="base_url">https://api.openweathermap.org/</string>
+    <string name="exclude_hourly">"{current,minutely,daily}"</string>
+    <string name="exclude_current">"{hourly,minutely,daily}"</string>
+    <string name="exclude_daily">"{current,minutely,hourly}"</string>
+    <string name="units">metric</string>
 
     <!-- Init Activity -->
     <string name="init_title">선호하는 스타일을 선택해주세요</string>

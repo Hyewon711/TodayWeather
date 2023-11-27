@@ -48,18 +48,17 @@ class InitActivity : AppCompatActivity() {
     }
 
     private fun styleClickEvent() {
-        with(binding) {
-            MaterialAlertDialogBuilder(this@InitActivity)
-                .setTitle(resources.getString(R.string.init_dialog_title))
-                .setMessage(resources.getString(R.string.init_dialog_contents))
-                .setNeutralButton(resources.getString(R.string.init_dialog_negative)) { dialog, which ->
-                    // Respond to neutral button press
-                }
-                .setPositiveButton(resources.getString(R.string.init_dialog_positive)) { dialog, which ->
-                    intent = Intent(this@InitActivity, MainActivity::class.java)
-                    startActivity(intent)
-                }
-                .show()
-        }
+        MaterialAlertDialogBuilder(this@InitActivity)
+            .setTitle(resources.getString(R.string.init_dialog_title))
+            .setMessage(resources.getString(R.string.init_dialog_contents))
+            .setNeutralButton(resources.getString(R.string.init_dialog_negative)) { dialog, which ->
+                // Respond to neutral button press
+            }
+            .setPositiveButton(resources.getString(R.string.init_dialog_positive)) { dialog, which ->
+                intent = Intent(this@InitActivity, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+            .show()
     }
 }

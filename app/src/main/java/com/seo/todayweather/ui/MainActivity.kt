@@ -8,9 +8,10 @@ import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
 import com.seo.todayweather.R
 import com.seo.todayweather.databinding.ActivityMainBinding
-import com.seo.todayweather.util.common.CUURRENTFRAGMENTTAG
-import com.seo.todayweather.util.common.HOME
 import com.seo.todayweather.ui.home.HomeFragment
+import com.seo.todayweather.util.common.CUURRENTFRAGMENTTAG
+import com.seo.todayweather.util.common.CurrentLocation
+import com.seo.todayweather.util.common.HOME
 import com.seo.todayweather.viewmodel.WeatherViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -19,7 +20,6 @@ class MainActivity : AppCompatActivity() {
     val TAG: String = "로그"
     private lateinit var binding: ActivityMainBinding
     private lateinit var currentFragmentTag: String
-    private val locationViewModel: LocationViewModel by viewModels()
 
     // 뷰모델 생성
     private val viewModel by viewModels<WeatherViewModel>()
@@ -41,8 +41,13 @@ class MainActivity : AppCompatActivity() {
         initView()
 
         viewModel.getWeather(
-            "JSON", 5, 1,
-            20231123, 1100, "63", "89"
+            "JSON",
+            2,
+            1,
+            20231126,
+            1100,
+            CurrentLocation.currentLocation?.latitude?.toInt().toString(),
+            CurrentLocation.currentLocation?.longitude?.toInt().toString()
         )
 
         viewModel.weatherResponse.observe(this) {

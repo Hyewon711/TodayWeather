@@ -5,4 +5,7 @@
 
     <dimen name="home_vertical_margin">12dp</dimen>
     <dimen name="home_horizontal_margin">16dp</dimen>
+
+    <dimen name="login_background_block">380dp</dimen>
+    <dimen name="login_margin">8dp</dimen>
 </resources>

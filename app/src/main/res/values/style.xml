@@ -6,6 +6,26 @@
         <item name="android:textColor">#FFFFFF</item>
     </style>
 
+    <!-- Login Style -->
+    <style name="login_title_1">
+        <item name="android:textSize">28sp</item>
+        <item name="android:textColor">@color/primary_01</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="login_title_2">
+        <item name="android:textSize">28sp</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Init Style -->
+    <style name="init_title">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
     <!-- Home Style -->
     <style name="tv_guide_location">
         <item name="android:textSize">12sp</item>
