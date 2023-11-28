@@ -40,15 +40,15 @@ class MainActivity : AppCompatActivity() {
         }
         initView()
 
-        viewModel.getWeather(
-            "JSON",
-            2,
-            1,
-            20231126,
-            1100,
-            CurrentLocation.currentLocation?.latitude?.toInt().toString(),
-            CurrentLocation.currentLocation?.longitude?.toInt().toString()
-        )
+//        viewModel.getWeather(
+//            "JSON",
+//            2,
+//            1,
+//            20231128,
+//            1100,
+//            CurrentLocation.currentLocation?.latitude?.toInt().toString(),
+//            CurrentLocation.currentLocation?.longitude?.toInt().toString()
+//        )
 
         viewModel.weatherResponse.observe(this) {
             if (it.body() != null) {

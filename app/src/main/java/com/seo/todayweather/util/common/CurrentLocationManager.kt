@@ -160,7 +160,6 @@ class CurrentLocationManager(private val context: Context) {
 
         val geocoder = Geocoder(context, Locale.getDefault())
         val addresses: List<Address>? = geocoder.getFromLocation(latitude, longitude, 1)
-        Log.d("로그", "updateLocation: $addresses")
         if (!addresses.isNullOrEmpty()) {
             val address = addresses[0]
             val addressText = address.getAddressLine(0)

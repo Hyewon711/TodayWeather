@@ -78,6 +78,7 @@ dependencies {
     // Firebase
     implementation(platform("com.google.firebase:firebase-bom:32.5.0"))
     implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-firestore-ktx:24.8.1")
 
     // Retrofit2
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
