@@ -8,13 +8,13 @@ import kotlinx.coroutines.tasks.await
 class FirestoreManager {
 
     private val db = FirebaseFirestore.getInstance()
-    private val notesCollection: CollectionReference = db.collection("notes")
+    private val notesCollection: CollectionReference = db.collection("style")
 
     suspend fun addNote(note: StylePost) {
         notesCollection.add(note).await()
     }
 
-    suspend fun getAllNotes(): MutableList<StylePost> {
+    suspend fun getAllStylePosts(): MutableList<StylePost> {
         return notesCollection.get().await().toObjects(StylePost::class.java)
     }
 }

@@ -8,4 +8,7 @@
 
     <dimen name="login_background_block">380dp</dimen>
     <dimen name="login_margin">8dp</dimen>
+
+    <dimen name="style_contents">200dp</dimen>
+    <dimen name="style_vertical_margin">30dp</dimen>
 </resources>
