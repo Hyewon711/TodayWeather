@@ -35,6 +35,7 @@ class StyleFragment : BaseFragment<FragmentStyleBinding>(FragmentStyleBinding::i
 
     private fun getStylePost() {
         CoroutineScope(Dispatchers.Main).launch {
+            // TODO await해서 데이터를 전부 받아온 후 emit을 해주어야한다
             postList = firestoreManager.getAllStylePosts()
             with(binding.rvStyle) {
                 layoutManager = GridLayoutManager(activity, 2)

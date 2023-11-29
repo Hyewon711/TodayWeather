@@ -6,8 +6,8 @@ object CurrentLocation {
     private val listeners = mutableListOf<(Location) -> Unit>()
     private var _currentLocation: Location? = null
 
-    var currentLocation: Location?
-        get() = _currentLocation
+    var currentLocation: Location
+        get() = _currentLocation as Location
         set(value) {
             _currentLocation = value
             notifyListeners(value)
@@ -16,7 +16,7 @@ object CurrentLocation {
     fun addLocationChangeListener(listener: (Location) -> Unit) {
         listeners.add(listener)
         // 추가된 리스너에게 현재 값을 전달
-        currentLocation?.let { listener.invoke(it) }
+        currentLocation.let { listener.invoke(it) }
     }
 
     fun removeLocationChangeListener(listener: (Location) -> Unit) {

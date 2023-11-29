@@ -34,7 +34,7 @@
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_marginStart="@dimen/home_horizontal_margin"
-            android:src="@drawable/ic_back"
+            android:src="@drawable/ic_more"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

@@ -49,6 +49,7 @@ class LoginActivity : AppCompatActivity() {
             permissionCheck()
         }
         if(PrefManager.getInstance().isPermission) {
+            // TODO coroutine 내리기
             CurrentLocationManager(this).checkLocationCurrentDevice()
         }
     }

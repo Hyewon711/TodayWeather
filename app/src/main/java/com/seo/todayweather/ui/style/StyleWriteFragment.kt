@@ -39,6 +39,7 @@ class StyleWriteFragment :
         try {
             val db = FirebaseFirestore.getInstance()
             val stylePostCollection = db.collection("stylePost")
+
             stylePostCollection.add(inputData).addOnSuccessListener { documentReference ->
                 Log.d(TAG, "DocumentSnapshot written with ID: ${documentReference.id}")
             }

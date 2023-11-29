@@ -49,10 +49,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     override fun onViewCreated() {
         getLocation()
         initView()
-        getWeatherApi()
-        initViewFunctionOfCurrentData()
-        initViewFunctionOfHourlyData()
-        initViewFunctionOfDailyData()
+//        getWeatherApi()
+//        initViewFunctionOfCurrentData()
+//        initViewFunctionOfHourlyData()
+//        initViewFunctionOfDailyData()
     }
 
     private fun getLocation() {
