@@ -15,6 +15,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(FragmentMyPageBinding
             ivUser.setOnAvoidDuplicateClick {
                 mypageFragment.changeFragment(this@MyPageFragment, HomeFragment())
             }
+
         }
     }
 }

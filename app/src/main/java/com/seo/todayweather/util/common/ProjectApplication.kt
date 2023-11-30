@@ -5,16 +5,20 @@ import android.app.Application
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import com.kakao.sdk.common.KakaoSdk
+import dagger.Component
 import dagger.hilt.android.HiltAndroidApp
+import javax.inject.Singleton
 
 @HiltAndroidApp
 class ProjectApplication : Application() {
     companion object {
         private var instance: ProjectApplication? = null
+
         fun getInstance(): ProjectApplication {
             return instance!!
         }
     }
+
 
     override fun onCreate() {
         super.onCreate()

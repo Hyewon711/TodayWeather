@@ -8,14 +8,20 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DecodeFormat
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.card.MaterialCardView
 import com.seo.todayweather.R
 import com.seo.todayweather.base.BaseFragment
 import com.seo.todayweather.data.DailyItem
 import com.seo.todayweather.data.HourlyItem
 import com.seo.todayweather.databinding.FragmentHomeBinding
+import com.seo.todayweather.remote.helper.DatabaseHelper
 import com.seo.todayweather.remote.helper.OpenWeatherHelper
 import com.seo.todayweather.remote.model.Daily
 import com.seo.todayweather.remote.model.HourlyAndCurrent
@@ -29,16 +35,18 @@ import com.seo.todayweather.util.common.HOME
 import com.seo.todayweather.util.extension.changeFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate),
     ChipSelectedListener {
     private lateinit var initBottomSheet: InitBottomSheet
+    lateinit var openWeatherHelper: OpenWeatherHelper
+    lateinit var databaseHelper: DatabaseHelper
 
     val TAG: String = "로그"
     private var location: Location? = null
+    private var addressText: String? = ""
     lateinit var setHourlyData: (ArrayList<HourlyAndCurrent>) -> Unit
     lateinit var setCurrentData: (HourlyAndCurrent) -> Unit
     lateinit var setDailyData: (ArrayList<Daily>) -> Unit
@@ -49,16 +57,22 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     override fun onViewCreated() {
         getLocation()
         initView()
-//        getWeatherApi()
-//        initViewFunctionOfCurrentData()
-//        initViewFunctionOfHourlyData()
-//        initViewFunctionOfDailyData()
+        initViewFunctionOfCurrentData()
+        initViewFunctionOfHourlyData()
+        initViewFunctionOfDailyData()
+        getDatabaseAndSetView()
     }
 
     private fun getLocation() {
-        CurrentLocation.addLocationChangeListener {
-            location = CurrentLocation.currentLocation
-            Log.d(TAG, "Location updated: $location")
+        CurrentLocation.addLocationChangeListener { location, addressText ->
+            this.location = location
+            this.addressText = addressText
+            Log.d(TAG, "Location updated: $location, Address updated: $addressText")
+        }
+        if (location != null && addressText != "") {
+            with(binding) {
+                tvMyLocation.text = addressText.toString()
+            }
         }
     }
 
@@ -89,6 +103,24 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                 adapter = dailyWeatherAdapter
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             }
+        }
+
+        openWeatherHelper = OpenWeatherHelper(requireContext()) // 미리 초기화 작업을 실행
+    }
+
+    /* 데이터 베이스 초기화작업 */
+    private fun getDatabaseAndSetView() {
+        CoroutineScope(Dispatchers.IO).launch {
+            databaseHelper = DatabaseHelper.getInstance(requireContext())
+            // TODO 네트워크가 끊겼을 때 Room DB 사용
+            Log.d(TAG, "사이즈 : ${databaseHelper.currentDao().getCurrent().size}")
+            if (databaseHelper.currentDao().getCurrent().size > 0) {
+                Log.d(TAG, "현재 : ${databaseHelper.currentDao().getCurrent()[0]}") // dt = 1597656499
+                Log.d(TAG, "시간별 데이터 개수 : ${databaseHelper.hourlyDao().getHourly().size}개")
+                Log.d(TAG, "날짜별 데이터 개수 : ${databaseHelper.dailyDao().getDaily().size}개")
+            }
+            Log.d(TAG, "데이터베이스 작업 끝")
+            getWeatherApi()
         }
     }
 
@@ -126,7 +158,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         }
     }
 
-    // @SuppressLint("NewApi")는 해당 프로젝트의 설정 된 minSdkVersion 이후에 나온 API를 사용할때  warning을 없애고 개발자가 해당 APi를 사용할 수 있게 합니다.
+    /**
+     * 시간별 날씨 데이터 view
+     */
+
     @SuppressLint("SimpleDateFormat")
     fun initViewFunctionOfHourlyData() {
         setHourlyData = { model ->
@@ -147,15 +182,21 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         }
     }
 
+    /**
+     *  일별 날씨 데이터 view
+     *
+     */
     @SuppressLint("SetTextI18n", "SimpleDateFormat")
     fun initViewFunctionOfDailyData() {
         setDailyData = { model ->
             println("daily 실행")
             model[0].let { item ->
                 with(binding) {
-                    tvTemp.text =
+                    tvMinMaxTemp.text =
                         "${(item.temp.max).toInt()}${getString(R.string.celsius)} / ${(item.temp.min).toInt()}${
-                            getString(R.string.celsius)
+                            getString(
+                                R.string.celsius
+                            )
                         }"
                 }
             }
@@ -175,13 +216,18 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         }
     }
 
+    /**
+     * 현재 날씨 데이터를 기준으로 배경 색상과 현재 기온 변경
+     *
+     */
+    @SuppressLint("SetTextI18n")
     private fun initViewFunctionOfCurrentData() {
         val DARK_COLOR = Color.parseColor("#505050")
         val LIGHT_COLOR = Color.parseColor("#eeeeee")
 
         setCurrentData = { model ->
-            println("current 실행")
-            model.weather[0].id.let {
+            Log.d(TAG, "current 실행")
+//            model.weather[0].id.let {
 //                if (it>800) {
 //                    mainConstraintLayout.background = getDrawable(R.drawable.bg_clouds)
 //                    changeColor(LIGHT_COLOR)
@@ -201,17 +247,23 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 //                    mainConstraintLayout.background = getDrawable(R.drawable.bg_storm)
 //                    changeColor(LIGHT_COLOR)
 //                }
-            }
 
-//            Glide.with(this)
-//                .load("https://openweathermap.org/img/wn/${model.weather[0].icon}@2x.png")
-//                .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                .apply(RequestOptions().format(DecodeFormat.PREFER_ARGB_8888))
-//                .into(mainWeatherImageView)
-//            currentTempTextView.text = "${model.temp.toInt()}"
+            Glide.with(this)
+                .load("https://openweathermap.org/img/wn/${model.weather[0].icon}@2x.png")
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .apply(RequestOptions().format(DecodeFormat.PREFER_ARGB_8888))
+                .into(binding.ivWeather)
+            with(binding) {
+                tvCurrentTemp.text = "${model.temp.toInt()}${getString(R.string.celsius)}"
+            }
         }
     }
 
+    /**
+     * AddView (동적 view settings)
+     *
+     * @param chip
+     */
     override fun onChipSelected(chip: List<String>) {
         Log.d(TAG, "onChipSelected: $chip")
         when (chip.size) {

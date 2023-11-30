@@ -40,6 +40,10 @@
     <string name="home_commend_title">이 옷 어때요?</string>
     <string name="home_content_title">오늘을 알려드려요</string>
 
+    <!-- Weather Item -->
+    <string name="item_weather_date">7/11</string>
+    <string name="item_weather_min_temp">0도</string>
+    <string name="item_weather_max_temp">10도</string>
     <!-- CommendFragment -->
     <string name="commend_title">오늘 날씨에 어울리는 옷을 추천해드려요</string>
     <string name="commend_lowest_temp">최저기온</string>
@@ -89,6 +93,4 @@
     <string name="nav_commend">기온별 옷 추천</string>
     <string name="nav_style">오늘의 스타일</string>
     <string name="nav_mypage">마이페이지</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

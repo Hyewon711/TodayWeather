@@ -1,5 +1,9 @@
 package com.seo.todayweather.ui.commend
 
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import com.seo.todayweather.base.BaseFragment
 import com.seo.todayweather.data.StylePost
@@ -8,9 +12,14 @@ import com.seo.todayweather.ui.adapter.StyleRecyclerAdapter
 import com.seo.todayweather.ui.mypage.MyPageFragment
 import com.seo.todayweather.ui.style.StyleFragment
 import com.seo.todayweather.util.extension.changeFragment
+import com.seo.todayweather.viewmodel.StyleViewModel
+import kotlinx.coroutines.launch
 
 class CommendFragment : BaseFragment<FragmentCommendBinding>(FragmentCommendBinding::inflate) {
+    private val viewModel: StyleViewModel by activityViewModels()
+
     override fun onViewCreated() {
+        getStylePost()
         initView()
     }
 
@@ -34,6 +43,23 @@ class CommendFragment : BaseFragment<FragmentCommendBinding>(FragmentCommendBind
                 )
             layoutManager = GridLayoutManager(activity, 2)
             adapter = StyleRecyclerAdapter(items)
+        }
+    }
+
+    private fun getStylePost() {
+        var postList: List<StylePost>
+
+        // StateFlow를 관찰하고 UI를 업데이트
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.stylePosts.collect {
+                    postList = it
+                    with(binding.rvStyle) {
+                        layoutManager = GridLayoutManager(activity, 2)
+                        adapter = StyleRecyclerAdapter(postList)
+                    }
+                }
+            }
         }
     }
 }

@@ -2,6 +2,7 @@ package com.seo.todayweather.di
 
 import com.seo.todayweather.remote.api.Constants.Companion.BASE_URL
 import com.seo.todayweather.remote.api.WeatherApi
+import com.seo.todayweather.ui.style.FirestoreManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,14 +17,21 @@ object AppModule {
     // TODO : Provides 학습하기
     @Provides
     @Singleton
-    fun provideRetrofit() : Retrofit =
+    fun provideRetrofit(): Retrofit =
         Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+
     @Provides
     @Singleton
-    fun provideWeatherApi(retrofit : Retrofit) : WeatherApi =
+    fun provideWeatherApi(retrofit: Retrofit): WeatherApi =
         retrofit.create(WeatherApi::class.java)
+
+    @Singleton
+    @Provides
+    fun provideFirestoreManager(): FirestoreManager {
+        return FirestoreManager()
+    }
 
 }

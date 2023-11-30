@@ -9,8 +9,9 @@
 
     <TextView
         android:id="@+id/hourlyItemTimeTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:text="00시" />
 
     <ImageView
@@ -21,7 +22,8 @@
 
     <TextView
         android:id="@+id/hourlyItemTempTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="10도" />
+        android:gravity="center"
+        android:text="@string/item_weather_min_temp" />
 </LinearLayout>

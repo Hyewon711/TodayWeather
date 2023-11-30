@@ -1,5 +1,4 @@
 import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
-import org.gradle.internal.impldep.org.junit.experimental.categories.Categories.CategoryFilter.exclude
 
 plugins {
     id("com.android.application")
@@ -91,6 +90,20 @@ dependencies {
     annotationProcessor ("com.google.dagger:dagger-compiler:2.48.1") // Dagger compiler
     kapt ("com.google.dagger:hilt-android-compiler:2.48.1")
 
+    // Room DB
+    val room_version = "2.5.0"
+    implementation("androidx.room:room-runtime:$room_version")
+    annotationProcessor("androidx.room:room-compiler:$room_version")
+    kapt("androidx.room:room-compiler:$room_version")
+    implementation("androidx.room:room-ktx:$room_version")
+
+    // ViewModel, LiveData
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
+    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
+    implementation ("androidx.fragment:fragment-ktx:1.6.2")
+    implementation ("androidx.activity:activity-ktx:1.8.1")
+    debugImplementation ("androidx.fragment:fragment-testing:1.6.2")
+
     // Kakao
     implementation ("com.kakao.sdk:v2-user:2.18.0") // 카카오 로그인
 
@@ -98,7 +111,6 @@ dependencies {
     implementation ("io.github.ParkSangGwon:tedpermission-normal:3.3.0")
     //implementation 'androidx.preference:preference-ktx:1.2.0'
     implementation("androidx.preference:preference-ktx:1.2.1") {
-        exclude(group = "androidx.lifecycle", module = "lifecycle-viewmodel")
         exclude(group = "androidx.lifecycle", module = "lifecycle-viewmodel-ktx")
     }
 

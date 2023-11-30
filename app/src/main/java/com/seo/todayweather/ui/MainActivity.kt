@@ -12,6 +12,7 @@ import com.seo.todayweather.ui.home.HomeFragment
 import com.seo.todayweather.util.common.CUURRENTFRAGMENTTAG
 import com.seo.todayweather.util.common.CurrentLocation
 import com.seo.todayweather.util.common.HOME
+import com.seo.todayweather.viewmodel.StyleViewModel
 import com.seo.todayweather.viewmodel.WeatherViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -22,9 +23,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var currentFragmentTag: String
 
     // 뷰모델 생성
-    private val viewModel by viewModels<WeatherViewModel>()
-
-
+    private val weatherViewModel: WeatherViewModel by viewModels()
+    lateinit var styleViewModel: StyleViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater).also {
@@ -40,17 +40,20 @@ class MainActivity : AppCompatActivity() {
         }
         initView()
 
-//        viewModel.getWeather(
-//            "JSON",
-//            2,
-//            1,
-//            20231128,
-//            1100,
-//            CurrentLocation.currentLocation?.latitude?.toInt().toString(),
-//            CurrentLocation.currentLocation?.longitude?.toInt().toString()
-//        )
+    }
 
-        viewModel.weatherResponse.observe(this) {
+    private fun getKMAApi() {
+        weatherViewModel.getWeather(
+            "JSON",
+            2,
+            1,
+            20231129,
+            1100,
+            CurrentLocation.currentLocation.latitude.toInt().toString(),
+            CurrentLocation.currentLocation.longitude.toInt().toString()
+        )
+
+        weatherViewModel.weatherResponse.observe(this) {
             if (it.body() != null) {
                 Log.d(TAG, "${it.body()}")
                 it.body()?.response!!.body.items.item.forEach { i ->
@@ -60,9 +63,7 @@ class MainActivity : AppCompatActivity() {
                 Log.d(TAG, "onCreate: Null 반환")
             }
         }
-
     }
-
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putString(CUURRENTFRAGMENTTAG, currentFragmentTag)

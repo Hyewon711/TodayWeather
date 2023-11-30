@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="11/27"
+        android:text="@string/item_weather_date"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -26,20 +26,22 @@
 
     <TextView
         android:id="@+id/dailyMinTempTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/item_daily_temp_size"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:text="10도"
+        android:layout_marginEnd="@dimen/home_horizontal_margin"
+        android:gravity="center"
+        android:text="@string/item_weather_min_temp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/dailyMaxTempTextView"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/dailyMaxTempTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/item_daily_temp_size"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:text="20도"
+        android:layout_marginEnd="@dimen/home_horizontal_margin"
+        android:gravity="center"
+        android:text="@string/item_weather_max_temp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

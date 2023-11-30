@@ -17,6 +17,7 @@ import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.LocationSettingsRequest
 import com.google.android.gms.location.Priority
+import com.seo.todayweather.util.common.CurrentLocation.addressText
 import java.util.Locale
 
 
@@ -63,7 +64,7 @@ class CurrentLocationManager(private val context: Context) {
         mLocationRequest = LocationRequest.Builder(priorityType, locationIntervalTime)
             .setWaitForAccurateLocation(true)
             .setMinUpdateIntervalMillis(locationIntervalTime)
-            .setIntervalMillis(30000.toLong()) //위치가 update 되는 주기
+            .setIntervalMillis(600000.toLong()) //위치가 update 되는 주기 10분
             .setMaxUpdateDelayMillis(locationIntervalTime)
             .build()
 
@@ -158,11 +159,12 @@ class CurrentLocationManager(private val context: Context) {
         val latitude = location.latitude
         val longitude = location.longitude
 
+        // TODO gedocoder말고 네이버 주소 api로 변경하기
         val geocoder = Geocoder(context, Locale.getDefault())
         val addresses: List<Address>? = geocoder.getFromLocation(latitude, longitude, 1)
         if (!addresses.isNullOrEmpty()) {
             val address = addresses[0]
-            val addressText = address.getAddressLine(0)
+            addressText = address.getAddressLine(0)
             Log.d("로그", "updateLocation: $addressText")
         } else {
             Log.d("로그", "주소를 찾을 수 없습니다")
