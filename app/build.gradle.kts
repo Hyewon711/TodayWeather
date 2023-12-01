@@ -86,6 +86,7 @@ dependencies {
 
     // DI
     implementation("com.google.dagger:hilt-android:2.48.1")
+    implementation("com.google.firebase:firebase-storage-ktx:20.3.0")
     annotationProcessor ("com.google.dagger:hilt-android-compiler:2.48.1")
     annotationProcessor ("com.google.dagger:dagger-compiler:2.48.1") // Dagger compiler
     kapt ("com.google.dagger:hilt-android-compiler:2.48.1")
@@ -116,6 +117,10 @@ dependencies {
 
     // Gilde
     implementation ("com.github.bumptech.glide:glide:4.16.0")
+    // Coil (svg 이미지 처리)
+    implementation ("io.coil-kt:coil:1.2.0")
+    implementation ("io.coil-kt:coil-svg:1.2.0")
+
 
     // RxBinding
     implementation("com.jakewharton.rxbinding4:rxbinding:4.0.0")

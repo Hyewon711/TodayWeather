@@ -1,4 +1,4 @@
-package com.seo.todayweather.data
+       package com.seo.todayweather.data
 
 enum class Top(
     val temperatureRange: IntRange,
@@ -6,7 +6,7 @@ enum class Top(
     val icon: String
 ) {
     // 28 ~
-    SLEEVELESS_T_SHIRT(28..100, "민소매" ,"URI주소"),
+    SLEEVELESS_T_SHIRT(28..100, "민소매" ,""),
     LINEN_CLOTHES(28..100,"린넨 옷","URI 주소"),
     SHORT_SLEEVE(23..100, "반팔", "URI 주소"),
     // 23 ~
@@ -51,8 +51,10 @@ enum class Bottom(
     // 9 ~
     JEANS(9..16, "청바지", "URI 주소"),
     NAPPING_PANTS(9..11,"기모바지","URI주소"),
+    LONG_SKIRT(4..11,"긴치마","URI주소"),
+    WOOLEN_SKIRT(-100..4,"모직치마","URI주소"),
     // 4 이하
-    WARM_PANTS(0..10, "털옷바지","URI주소");
+    WARM_PANTS(-100..4, "털옷바지","URI주소");
 
     fun isTemperatureInRange(temperature: Int): Boolean {
         return temperature in temperatureRange
@@ -74,10 +76,10 @@ enum class Outerwear(
     TRENCH_COAT(9..11,"트렌치 코트", "URI 주소"),
     FIELD_JACKET(9..11, "야상 자켓", "URI 주소"),
     JUMPER(9..11,"점퍼", "URI 주소"),
-
-
-
-    HEAVY_JACKET(0..10, "두꺼운 자켓","URI주소");
+    LEATHER_JACKET(4..9, "가죽 자켓", "URI 주소"),
+    // 4 이하
+    PADDED_JACKET(-100..4,"패딩","URI주소"),
+    HEAVY_JACKET(-100..4, "두꺼운 자켓","URI주소");
 
     fun isTemperatureInRange(temperature: Int): Boolean {
         return temperature in temperatureRange
@@ -86,16 +88,9 @@ enum class Outerwear(
 
 // 사용 예시
 fun chooseOutfit(temperature: Int): Triple<Top?, Bottom?, Outerwear?> {
-    val chosenTop = Top.values().find { it.isTemperatureInRange(temperature) }
-    val chosenBottom = Bottom.values().find { it.isTemperatureInRange(temperature) }
-    val chosenOuterwear = Outerwear.values().find { it.isTemperatureInRange(temperature) }
+    val chosenTop = Top.values().filter { it.isTemperatureInRange(temperature) }
+    val chosenBottom = Bottom.values().filter { it.isTemperatureInRange(temperature) }
+    val chosenOuterwear = Outerwear.values().filter { it.isTemperatureInRange(temperature) }
 
-    return Triple(chosenTop, chosenBottom, chosenOuterwear)
+    return Triple(chosenTop.random(), chosenBottom.random(), chosenOuterwear.random())
 }
-
-//// 출력
-//val outfitChoices = chooseOutfit(15)
-//Log.d(TAG, "Top: ${outfitChoices.first?.outfit}")
-//Log.d(TAG, "Bottom: ${outfitChoices.second?.outfit}")
-//Log.d(TAG, "Outerwear: ${outfitChoices.third?.outfit}")
-//Log.d(TAG, "Accessories: ${outfitChoices.first?.accessories?.plus(outfitChoices.second?.accessories ?: emptyList())?.plus(outfitChoices.third?.accessories ?: emptyList())?.joinToString(", ")}")

@@ -2,24 +2,33 @@ package com.seo.todayweather.ui.home
 
 import android.annotation.SuppressLint
 import android.graphics.Color
+import android.graphics.drawable.BitmapDrawable
 import android.location.Location
 import android.util.Log
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import coil.ImageLoader
+import coil.decode.SvgDecoder
+import coil.request.ImageRequest
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.card.MaterialCardView
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.ktx.storage
 import com.seo.todayweather.R
 import com.seo.todayweather.base.BaseFragment
 import com.seo.todayweather.data.DailyItem
 import com.seo.todayweather.data.HourlyItem
+import com.seo.todayweather.data.chooseOutfit
 import com.seo.todayweather.databinding.FragmentHomeBinding
 import com.seo.todayweather.remote.helper.DatabaseHelper
 import com.seo.todayweather.remote.helper.OpenWeatherHelper
@@ -31,6 +40,7 @@ import com.seo.todayweather.ui.commend.CommendFragment
 import com.seo.todayweather.ui.home.bottomsheet.ChipSelectedListener
 import com.seo.todayweather.ui.home.bottomsheet.InitBottomSheet
 import com.seo.todayweather.util.common.CurrentLocation
+import com.seo.todayweather.util.common.CurrentTemp
 import com.seo.todayweather.util.common.HOME
 import com.seo.todayweather.util.extension.changeFragment
 import kotlinx.coroutines.CoroutineScope
@@ -43,6 +53,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     private lateinit var initBottomSheet: InitBottomSheet
     lateinit var openWeatherHelper: OpenWeatherHelper
     lateinit var databaseHelper: DatabaseHelper
+    private val storage: FirebaseStorage = Firebase.storage
 
     val TAG: String = "로그"
     private var location: Location? = null
@@ -226,7 +237,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         val LIGHT_COLOR = Color.parseColor("#eeeeee")
 
         setCurrentData = { model ->
-            Log.d(TAG, "current 실행")
+            CurrentTemp.temp = model.temp.toInt()
 //            model.weather[0].id.let {
 //                if (it>800) {
 //                    mainConstraintLayout.background = getDrawable(R.drawable.bg_clouds)
@@ -256,7 +267,91 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             with(binding) {
                 tvCurrentTemp.text = "${model.temp.toInt()}${getString(R.string.celsius)}"
             }
+            getStorageImageSetView(model.temp.toInt())
         }
+    }
+
+
+    private fun getStorageImageSetView(temp: Int) {
+        val storageRef: StorageReference =
+            storage.getReferenceFromUrl(getString(R.string.storage_url))
+
+        val commendTop = chooseOutfit(temp).first
+        val commendBottom = chooseOutfit(temp).second
+        val commendOuter = chooseOutfit(temp).third
+
+        with(binding) {
+            if (commendTop != null) {
+                tvCommendItem1.text = commendTop.outfit
+            }
+            if (commendBottom != null) {
+                tvCommendItem2.text = commendBottom.outfit
+            }
+            if (commendOuter != null) {
+                tvCommendItem3.text = commendOuter.outfit
+            }
+        }
+
+        Log.d(TAG, "$commendTop $commendBottom $commendOuter")
+
+        val topPath = "icons/" + commendTop.toString() + ".svg"
+        val bottomPath = "icons/" + commendBottom.toString() + ".svg"
+        val outerPath = "icons/" + commendOuter.toString() + ".svg"
+        // 상의 Top
+        storageRef.child(topPath).downloadUrl.addOnSuccessListener {
+            val uri = it.toString()
+            with(binding) {
+                commendItem1.loadImageFromUrl(uri)
+            }
+        }.addOnFailureListener {
+            Log.d(TAG, "storage 이미지 가져오기 실패")
+        }
+
+        // 하의 Bottom
+        storageRef.child(bottomPath).downloadUrl.addOnSuccessListener {
+            val uri = it.toString()
+            with(binding) {
+                commendItem2.loadImageFromUrl(uri)
+            }
+        }.addOnFailureListener {
+            Log.d(TAG, "storage 이미지 가져오기 실패")
+        }
+
+        // 겉옷 Outer
+        storageRef.child(outerPath).downloadUrl.addOnSuccessListener {
+            val uri = it.toString()
+            with(binding) {
+                commendItem3.loadImageFromUrl(uri)
+            }
+        }.addOnFailureListener {
+            Log.d(TAG, "storage 이미지 가져오기 실패")
+        }
+    }
+
+    /**
+     * Load image from url
+     *
+     * @param imageUrl
+     */
+    fun ImageView.loadImageFromUrl(imageUrl: String) {
+        val imageLoader = ImageLoader.Builder(requireContext())
+            .componentRegistry {
+                add(SvgDecoder(context))
+            }
+            .build()
+
+        val imageRequest = ImageRequest.Builder(requireContext())
+            .crossfade(true)
+            .crossfade(300)
+            .data(imageUrl)
+            .target(
+                onSuccess = { result ->
+                    val bitmap = (result as BitmapDrawable).bitmap
+                    this.setImageBitmap(bitmap)
+                },
+            )
+            .build()
+        imageLoader.enqueue(imageRequest)
     }
 
     /**

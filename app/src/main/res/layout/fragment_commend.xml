@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/commend_fragment"
@@ -48,7 +47,7 @@
             <com.google.android.material.card.MaterialCardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/ly_commend"
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
+                android:layout_height="200dp"
                 android:layout_marginStart="@dimen/home_horizontal_margin"
                 android:layout_marginTop="@dimen/home_horizontal_margin"
                 android:layout_marginEnd="@dimen/home_horizontal_margin"
@@ -61,20 +60,31 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="@dimen/home_horizontal_margin">
 
                     <ImageView
-                        android:id="@+id/comment_item1"
+                        android:id="@+id/commend_item1"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:src="@drawable/ic_clothes_hoodie"
                         card_view:layout_constraintBottom_toBottomOf="parent"
-                        card_view:layout_constraintEnd_toStartOf="@id/comment_item2"
+                        card_view:layout_constraintEnd_toStartOf="@id/commend_item2"
                         card_view:layout_constraintStart_toStartOf="parent"
                         card_view:layout_constraintTop_toTopOf="parent" />
 
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_commend_item1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/commend_item_1"
+                        android:textAppearance="@style/commend_item_text"
+                        card_view:layout_constraintEnd_toEndOf="@id/commend_item1"
+                        card_view:layout_constraintStart_toStartOf="@id/commend_item1"
+                        card_view:layout_constraintTop_toBottomOf="@id/commend_item1" />
+
                     <ImageView
-                        android:id="@+id/comment_item2"
+                        android:id="@+id/commend_item2"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:src="@drawable/ic_clothes_jean"
@@ -83,16 +93,46 @@
                         card_view:layout_constraintStart_toStartOf="parent"
                         card_view:layout_constraintTop_toTopOf="parent" />
 
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_commend_item2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/commend_item_2"
+                        android:textAppearance="@style/commend_item_text"
+                        card_view:layout_constraintEnd_toEndOf="@id/commend_item2"
+                        card_view:layout_constraintStart_toStartOf="@id/commend_item2"
+                        card_view:layout_constraintTop_toBottomOf="@id/commend_item2" />
+
                     <ImageView
-                        android:id="@+id/comment_item3"
+                        android:id="@+id/commend_item3"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:src="@drawable/ic_clothes_jacket"
                         card_view:layout_constraintBottom_toBottomOf="parent"
                         card_view:layout_constraintEnd_toEndOf="parent"
-                        card_view:layout_constraintStart_toEndOf="@id/comment_item2"
+                        card_view:layout_constraintStart_toEndOf="@id/commend_item2"
                         card_view:layout_constraintTop_toTopOf="parent" />
 
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_commend_item3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/commend_item_3"
+                        android:textAppearance="@style/commend_item_text"
+                        card_view:layout_constraintEnd_toEndOf="@id/commend_item3"
+                        card_view:layout_constraintStart_toStartOf="@id/commend_item3"
+                        card_view:layout_constraintTop_toBottomOf="@id/commend_item3" />
+
+                    <ImageButton
+                        android:id="@+id/btn_refresh"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_marginBottom="-16dp"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/ic_refresh"
+                        card_view:layout_constraintBottom_toBottomOf="parent"
+                        card_view:layout_constraintEnd_toEndOf="parent"
+                        card_view:tint="@color/primary_01" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </com.google.android.material.card.MaterialCardView>
@@ -121,7 +161,47 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_commend_tomorrow"
                 card_view:cardBackgroundColor="@color/white"
                 card_view:cardCornerRadius="30dp"
-                card_view:cardElevation="5dp" />
+                card_view:cardElevation="5dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_tomorrow_item1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/commend_item_1"
+                        android:textAppearance="@style/commend_item_text"
+                        card_view:layout_constraintBottom_toBottomOf="parent"
+                        card_view:layout_constraintEnd_toStartOf="@id/tv_tomorrow_item2"
+                        card_view:layout_constraintStart_toStartOf="parent"
+                        card_view:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_tomorrow_item2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/commend_item_2"
+                        android:textAppearance="@style/commend_item_text"
+                        card_view:layout_constraintBottom_toBottomOf="parent"
+                        card_view:layout_constraintEnd_toEndOf="parent"
+                        card_view:layout_constraintStart_toStartOf="parent"
+                        card_view:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_tomorrow_item3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/commend_item_3"
+                        android:textAppearance="@style/commend_item_text"
+                        card_view:layout_constraintBottom_toBottomOf="parent"
+                        card_view:layout_constraintEnd_toEndOf="parent"
+                        card_view:layout_constraintStart_toEndOf="@id/tv_tomorrow_item2"
+                        card_view:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_commend_style"

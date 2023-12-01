@@ -40,6 +40,9 @@
     <string name="home_commend_title">이 옷 어때요?</string>
     <string name="home_content_title">오늘을 알려드려요</string>
 
+    <!-- Firebase Storage URL -->
+    <string name="storage_url">gs://todayweather-67667.appspot.com/</string>
+
     <!-- Weather Item -->
     <string name="item_weather_date">7/11</string>
     <string name="item_weather_min_temp">0도</string>
@@ -50,6 +53,11 @@
     <string name="commend_highest_temp">최고기온</string>
     <string name="commend_tomorrow">내일은 이런 옷이 좋을 것 같아요</string>
     <string name="commend_style_title">나와 비슷한 스타일의 사람은 이렇게 입었어요</string>
+
+    <string name="commend_item_1">티셔츠</string>
+    <string name="commend_item_2">청바지</string>
+    <string name="commend_item_3">가디건</string>
+
 
     <!-- StyleFragment -->
     <string name="style_toolbar_title">오늘의 스타일</string>

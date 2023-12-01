@@ -9,6 +9,7 @@ import com.seo.todayweather.base.BaseFragment
 import com.seo.todayweather.data.StylePost
 import com.seo.todayweather.databinding.FragmentStyleBinding
 import com.seo.todayweather.ui.adapter.StyleRecyclerAdapter
+import com.seo.todayweather.ui.home.HomeFragment
 import com.seo.todayweather.util.extension.changeFragment
 import com.seo.todayweather.viewmodel.StyleViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,6 +27,10 @@ class StyleFragment : BaseFragment<FragmentStyleBinding>(FragmentStyleBinding::i
     private fun initView() {
         getStylePost()
         with(binding) {
+            /* HomeFragment로 이동 */
+            lyToolbar.ivBack.setOnAvoidDuplicateClick {
+                styleFragment.changeFragment(this@StyleFragment, HomeFragment())
+            }
             /* StyleWriteFragment 이동 */
             lyToolbar.ivWrite.setOnAvoidDuplicateClick {
                 styleFragment.changeFragment(this@StyleFragment, StyleWriteFragment())
@@ -37,8 +42,8 @@ class StyleFragment : BaseFragment<FragmentStyleBinding>(FragmentStyleBinding::i
         var postList: List<StylePost>
 
         // StateFlow를 관찰하고 UI를 업데이트
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.stylePosts.collect {
                     postList = it
                     with(binding.rvStyle) {
