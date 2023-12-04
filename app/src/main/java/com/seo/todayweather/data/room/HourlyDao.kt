@@ -17,9 +17,6 @@ interface HourlyDao {
     @Insert
     fun insertHourly(vararg hourly: HourlyEntity)
 
-    /** REPLACE :
-     * OnConflict strategy constant to replace the old data and continue the transaction.
-     */
     @Update(onConflict = OnConflictStrategy.REPLACE)
     fun updateHourly(hourly: HourlyEntity)
 

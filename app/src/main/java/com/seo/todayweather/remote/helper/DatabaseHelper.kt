@@ -12,7 +12,7 @@ import com.seo.todayweather.data.room.HourlyDao
 import com.seo.todayweather.data.room.HourlyEntity
 
 
-@Database(entities = [CurrentEntity::class, HourlyEntity::class, DailyEntity::class], version = 1)
+@Database(entities = [CurrentEntity::class, HourlyEntity::class, DailyEntity::class], version = 2)
 abstract class DatabaseHelper: RoomDatabase() {
     abstract fun currentDao(): CurrentDao
     abstract fun hourlyDao(): HourlyDao

@@ -12,6 +12,8 @@ data class HourlyEntity (
     @ColumnInfo var feelstemp: Double = 0.0,
     @ColumnInfo var humidity: Int = 0,
     @ColumnInfo var clouds: Int = 0,
+    @ColumnInfo var uvi: Double = 0.0,
+    @ColumnInfo var windSpeed: Double = 0.0,
     @ColumnInfo var visibility: Int = 0,
     @ColumnInfo var weatherid: Int = 0,
     @ColumnInfo var main: String = "",

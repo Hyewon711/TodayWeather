@@ -10,6 +10,9 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.ImageLoader
@@ -28,6 +31,7 @@ import com.seo.todayweather.R
 import com.seo.todayweather.base.BaseFragment
 import com.seo.todayweather.data.DailyItem
 import com.seo.todayweather.data.HourlyItem
+import com.seo.todayweather.data.SelectChip
 import com.seo.todayweather.data.chooseOutfit
 import com.seo.todayweather.databinding.FragmentHomeBinding
 import com.seo.todayweather.remote.helper.DatabaseHelper
@@ -54,6 +58,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     lateinit var openWeatherHelper: OpenWeatherHelper
     lateinit var databaseHelper: DatabaseHelper
     private val storage: FirebaseStorage = Firebase.storage
+    private lateinit var addViewList: List<String>
 
     val TAG: String = "로그"
     private var location: Location? = null
@@ -63,7 +68,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     lateinit var setDailyData: (ArrayList<Daily>) -> Unit
     var hourlyWeatherAdapter = HourlyWeatherAdapter()
     var dailyWeatherAdapter = DailyWeatherAdapter()
-
 
     override fun onViewCreated() {
         getLocation()
@@ -200,7 +204,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     @SuppressLint("SetTextI18n", "SimpleDateFormat")
     fun initViewFunctionOfDailyData() {
         setDailyData = { model ->
-            println("daily 실행")
             model[0].let { item ->
                 with(binding) {
                     tvMinMaxTemp.text =
@@ -271,7 +274,24 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         }
     }
 
+    /**
+     * 동적으로 추가한 View에 선택한 항목의 데이터를 set하는 메서드
+     * hourly 시간별 일기예보 데이터 API 응답의 response 데이터로 설정한다.
+     */
+    private fun addViewSetDate() {
+        var windSpeed = 0 // 풍속
+        var clouds = 0 // 흐림 정도
+        var pop = 0 // 강수확률
+        var feelsLike = 0 // 체감온도
+        var humidity = 0 // 습도
+        var uvi = 0 // 자외선 지수
+    }
 
+    /**
+     * firebase storage에서 image svg 파일을 url로 가져오는 메서드
+     *
+     * @param temp
+     */
     private fun getStorageImageSetView(temp: Int) {
         val storageRef: StorageReference =
             storage.getReferenceFromUrl(getString(R.string.storage_url))
@@ -359,33 +379,56 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
      *
      * @param chip
      */
-    override fun onChipSelected(chip: List<String>) {
-        Log.d(TAG, "onChipSelected: $chip")
-        when (chip.size) {
-            1 -> addView1(chip[0])
-            2 -> {
-                addView1(chip[0])
-                addView2(chip[1])
-            }
+    override fun onChipSelected(chip: List<SelectChip>) {
+        // fragment에서는 viewLifecycleOwner 를 사용한다.
+        // chip 선택으로 추가한 view는 roomDB 데이터를 불러온다.
+        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
+                if (databaseHelper.hourlyDao().getHourly().isNotEmpty()) {
+                    for (element in chip) {
+                        when(element.name) {
+                            "미세먼지" -> element.additionalData = databaseHelper.hourlyDao().getHourly()[0].feelstemp
+                            "자외선 지수" -> element.additionalData = databaseHelper.hourlyDao().getHourly()[0].uvi
+                            "풍속" -> element.additionalData = databaseHelper.hourlyDao().getHourly()[0].windSpeed
+                            "습도" -> element.additionalData = databaseHelper.hourlyDao().getHourly()[0].humidity
+                            "체감온도" -> element.additionalData = databaseHelper.hourlyDao().getHourly()[0].feelstemp
+                        }
+                        Log.d(TAG, "feelstemp에 넣을 값 : ${databaseHelper.hourlyDao().getHourly()[0].feelstemp}")
+                        Log.d(TAG, "additionalData 값 : ${element.additionalData}")
+                    }
+                }
+                launch(Dispatchers.Main) {
 
-            3 -> {
-                addView1(chip[0])
-                addView3(chip[1], chip[2])
-            }
+                    Log.d(TAG, "onChipSelected: $chip")
+                    when (chip.size) {
+                        1 -> addView1(chip[0].name, chip[0].additionalData)
+                        2 -> {
+                            addView1(chip[0].name, chip[0].additionalData)
+                            addView2(chip[1].name, chip[1].additionalData)
+                        }
 
-            4 -> {
-                addView1(chip[0])
-                addView3(chip[1], chip[2])
-                addView4(chip[3])
-            }
+                        3 -> {
+                            addView1(chip[0].name, chip[0].additionalData)
+                            addView3(chip[1].name, chip[2].name)
+                        }
 
-            else -> {
-                addView1("비어있음")
+                        4 -> {
+                            addView1(chip[0].name, chip[0].additionalData)
+                            addView3(chip[1].name, chip[2].name)
+                            addView4(chip[3].name)
+                        }
+
+                        else -> {
+                            addView1("비어있음", 0)
+                        }
+                    }
+                }
             }
         }
     }
 
-    private fun addView1(chipText: String): LinearLayout {
+    private fun addView1(chipText: String, chipData: Number): LinearLayout {
+        Log.d(TAG, "addView1: $chipText $chipData")
         // HomeFragment의 ly_add_view 레이아웃 찾기
         val parentLayout1 = requireActivity().findViewById<LinearLayout>(R.id.ly_add_view1)
 
@@ -408,7 +451,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         // 아이템 1
         val cardView1 =
             layoutInflater.inflate(R.layout.item_home, itemContainer, false) as MaterialCardView
-        cardView1.findViewById<TextView>(R.id.tv_test).text = chipText
+        cardView1.findViewById<TextView>(R.id.tv_title).text = chipText
+        cardView1.findViewById<TextView>(R.id.tv_data).text = chipData.toString()
+
         setLayoutParamsLong(cardView1)
         itemContainer.addView(cardView1)
 
@@ -419,7 +464,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         return parentLayout1
     }
 
-    private fun addView2(chipText: String): LinearLayout {
+    private fun addView2(chipText: String, chipData: Number): LinearLayout {
         val parentLayout2 = requireActivity().findViewById<LinearLayout>(R.id.ly_add_view2)
 
         // 동적으로 추가될 아이템들을 담을 LinearLayout 생성
@@ -440,7 +485,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         // 아이템 2
         val cardView2 =
             layoutInflater.inflate(R.layout.item_home, itemContainer, false) as MaterialCardView
-        cardView2.findViewById<TextView>(R.id.tv_test).text = chipText
+        cardView2.findViewById<TextView>(R.id.tv_title).text = chipText
+        cardView2.findViewById<TextView>(R.id.tv_data).text = chipData.toString()
         setLayoutParamsShort(cardView2)
         itemContainer.addView(cardView2)
 
@@ -471,14 +517,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         // 아이템 2
         val cardView2 =
             layoutInflater.inflate(R.layout.item_home, itemContainer, false) as MaterialCardView
-        cardView2.findViewById<TextView>(R.id.tv_test).text = chipText1
+        cardView2.findViewById<TextView>(R.id.tv_title).text = chipText1
         setLayoutParamsShort(cardView2)
         itemContainer.addView(cardView2)
 
         // 아이템 3
         val cardView3 =
             layoutInflater.inflate(R.layout.item_home, itemContainer, false) as MaterialCardView
-        cardView3.findViewById<TextView>(R.id.tv_test).text = chipText2
+        cardView3.findViewById<TextView>(R.id.tv_title).text = chipText2
         setLayoutParamsShort(cardView3)
         itemContainer.addView(cardView3)
 
@@ -510,7 +556,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         // 아이템 4
         val cardView4 =
             layoutInflater.inflate(R.layout.item_home, itemContainer, false) as MaterialCardView
-        cardView4.findViewById<TextView>(R.id.tv_test).text = chipText
+        cardView4.findViewById<TextView>(R.id.tv_title).text = chipText
         setLayoutParamsLong(cardView4)
         itemContainer.addView(cardView4)
 

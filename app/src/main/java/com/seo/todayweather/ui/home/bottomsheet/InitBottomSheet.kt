@@ -9,6 +9,7 @@ import android.widget.Toast
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import com.seo.todayweather.data.SelectChip
 import com.seo.todayweather.databinding.InitBottomSheetBinding
 
 class InitBottomSheet : BottomSheetDialogFragment() {
@@ -28,7 +29,7 @@ class InitBottomSheet : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val selectedChipsOrder = mutableListOf<String>()
+        val selectedChipsOrder = mutableListOf<SelectChip>()
         with(binding) {
             selectChip = chipGroup
             getChipOrder = getOrderButton
@@ -38,9 +39,9 @@ class InitBottomSheet : BottomSheetDialogFragment() {
 
                 chip.setOnCheckedChangeListener { _, isChecked ->
                     if (isChecked) {
-                        selectedChipsOrder.add(chip.text.toString())
+                        selectedChipsOrder.add(SelectChip(i, chip.text.toString(),0))
                     } else {
-                        selectedChipsOrder.remove(chip.text.toString())
+                        selectedChipsOrder.remove(SelectChip(i, chip.text.toString(),0))
                     }
                 }
             }
@@ -48,14 +49,13 @@ class InitBottomSheet : BottomSheetDialogFragment() {
 
         getChipOrder.setOnClickListener {
             // Filter out unchecked chips before notifying the listener
-            val selectedChips = selectedChipsOrder.toList()
-            onChipSelected(selectedChips)
-            Toast.makeText(activity, "$selectedChips", Toast.LENGTH_SHORT).show()
+            onChipSelected(selectedChipsOrder)
+            Toast.makeText(activity, "$selectedChipsOrder", Toast.LENGTH_SHORT).show()
             dismiss()
         }
     }
 
-    private fun onChipSelected(chips: List<String>) {
+    private fun onChipSelected(chips: List<SelectChip>) {
         chipSelectedListener?.onChipSelected(chips)
     }
 }

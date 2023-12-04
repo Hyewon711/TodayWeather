@@ -46,8 +46,8 @@ class OpenWeatherHelper(context: Context) {
         weatherAPI.getWeatherList(
             lat,
             lon,
-            context.getString(R.string.exclude_hourly),
             BuildConfig.OPEN_WEATHER_KEY,
+            context.getString(R.string.exclude_hourly),
             context.getString(R.string.units)
         )
             .enqueue(object : Callback<OpenWeather> {
@@ -75,6 +75,8 @@ class OpenWeatherHelper(context: Context) {
                                     it.feels_like,
                                     it.humidity,
                                     it.clouds,
+                                    it.uvi,
+                                    it.wind_speed,
                                     it.visibility,
                                     it.weather[0].id,
                                     it.weather[0].main,
@@ -105,8 +107,8 @@ class OpenWeatherHelper(context: Context) {
         weatherAPI.getWeatherList(
             lat,
             lon,
-            context.getString(R.string.exclude_current),
             BuildConfig.OPEN_WEATHER_KEY,
+            context.getString(R.string.exclude_current),
             context.getString(R.string.units)
         )
             .enqueue(object : Callback<OpenWeather> {
@@ -155,8 +157,8 @@ class OpenWeatherHelper(context: Context) {
         weatherAPI.getWeatherList(
             lat,
             lon,
-            context.getString(R.string.exclude_daily),
             BuildConfig.OPEN_WEATHER_KEY,
+            context.getString(R.string.exclude_daily),
             context.getString(R.string.units)
         )
             .enqueue(object : Callback<OpenWeather> {

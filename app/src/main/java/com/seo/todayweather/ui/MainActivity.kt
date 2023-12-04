@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
             "JSON",
             2,
             1,
-            20231129,
+            20231203,
             1100,
             CurrentLocation.currentLocation.latitude.toInt().toString(),
             CurrentLocation.currentLocation.longitude.toInt().toString()

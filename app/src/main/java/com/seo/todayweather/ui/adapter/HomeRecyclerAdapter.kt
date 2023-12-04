@@ -29,7 +29,7 @@ class HomeRecyclerAdapter(private var items: List<SelectWidget>) : RecyclerView.
 
         with(holder.itemBinding) {
             userSelectInfo.title.let{
-                tvTest.text = it
+                tvTitle.text = it
             }
         }
     }
