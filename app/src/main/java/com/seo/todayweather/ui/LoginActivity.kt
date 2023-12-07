@@ -1,36 +1,30 @@
 package com.seo.todayweather.ui
 
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
-import com.google.android.gms.common.api.ResolvableApiException
-import com.google.android.gms.location.*
-import com.google.android.gms.tasks.Task
+import androidx.lifecycle.lifecycleScope
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.AuthErrorCause
 import com.kakao.sdk.user.UserApiClient
 import com.seo.todayweather.databinding.ActivityLoginBinding
+import com.seo.todayweather.ui.style.FirestoreManager
 import com.seo.todayweather.util.common.CurrentLocationManager
-import com.seo.todayweather.util.common.LBS_CHECK_CODE
-import com.seo.todayweather.util.common.LBS_CHECK_TAG
 import com.seo.todayweather.util.common.PermissionCheck
 import com.seo.todayweather.util.common.PrefManager
-import com.seo.todayweather.util.common.ProjectApplication
 import com.seo.todayweather.util.common.TAG
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 
 class LoginActivity : AppCompatActivity() {
-    private lateinit var currentLocationManager: CurrentLocationManager
-
     private lateinit var binding: ActivityLoginBinding
-    private val LOCATION_PERMISSION_REQUEST_CODE = 123
     private lateinit var permissionCheck: PermissionCheck
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,9 +42,10 @@ class LoginActivity : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             permissionCheck()
         }
-        if(PrefManager.getInstance().isPermission) {
-            // TODO coroutine 내리기
-            CurrentLocationManager(this).checkLocationCurrentDevice()
+        if (PrefManager.getInstance().isPermission) {
+            lifecycleScope.launch {
+                CurrentLocationManager(this@LoginActivity).checkLocationCurrentDevice()
+            }
         }
     }
 
@@ -85,8 +80,13 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Kakao login
+     *
+     */
     private fun kakaoLogin() {
         val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
+
             if (error != null) {
                 when {
                     error.toString() == AuthErrorCause.AccessDenied.toString() -> {
@@ -130,11 +130,46 @@ class LoginActivity : AppCompatActivity() {
                 }
             } else if (token != null) {
                 Toast.makeText(this, "로그인 성공", Toast.LENGTH_SHORT).show()
-                Intent(this, InitActivity::class.java).run {
-                    addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                    startActivity(this)
+                UserApiClient.instance.me { user, error ->
+                    if (error != null) {
+                        Log.e(TAG, "Kakao login failed", error)
+                    } else if (user != null) {
+                        // Kakao 사용자 정보 가져오기 성공
+                        val userData = hashMapOf(
+                            "name" to user.kakaoAccount?.profile?.nickname,
+                            "profilePictureUrl" to user.kakaoAccount?.profile?.thumbnailImageUrl
+                        )
+                        PrefManager.getInstance().getUserName = userData["name"]
+                        PrefManager.getInstance().getUserImage = userData["profilePictureUrl"]
+
+                        CoroutineScope(Dispatchers.IO).launch {
+                            try {
+                                user.id.let {
+                                    FirestoreManager().db.collection("users")
+                                        .document(it.toString())
+                                        .set(userData)
+                                        .await()
+                                }
+                            } catch (e: Exception) {
+                                Log.e(TAG, "Error saving user data to Firestore", e)
+                            }
+                        }
+                    }
                 }
-                finish()
+                // 이전에 스타일을 설정했다면 바로 MainActivity
+                if(PrefManager.getInstance().selectStyle!=0) {
+                    Intent(this, MainActivity::class.java).run {
+                        addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                        startActivity(this)
+                    }
+                    finish()
+                } else { // 설정하지 않은 경우 InitActivity
+                    Intent(this, InitActivity::class.java).run {
+                        addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                        startActivity(this)
+                    }
+                    finish()
+                }
             }
         }
         with(binding) {

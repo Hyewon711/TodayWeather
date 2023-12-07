@@ -4,6 +4,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="card_background">#FFF4F4F4</color>
     <color name="primary_01">#FF00A3FF</color>
+    <color name="primary_02">#FF007AF4</color>
 
     <color name="error">#FF2828</color>
     <color name="text_hint">#818181</color>

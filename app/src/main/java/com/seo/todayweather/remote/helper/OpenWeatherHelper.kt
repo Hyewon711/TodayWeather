@@ -62,8 +62,6 @@ class OpenWeatherHelper(context: Context) {
                     )
                     Log.d(TAG, "${response.raw()}")
 
-
-
                     response.body()?.let {
                         hourlyData(it.hourly!!)
                         for (i in 0..23) {
@@ -76,8 +74,8 @@ class OpenWeatherHelper(context: Context) {
                                     it.humidity,
                                     it.clouds,
                                     it.uvi,
-                                    it.wind_speed,
                                     it.visibility,
+                                    it.wind_speed,
                                     it.weather[0].id,
                                     it.weather[0].main,
                                     it.weather[0].description,

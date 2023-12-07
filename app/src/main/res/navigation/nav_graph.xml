@@ -1,42 +1,43 @@
-<?xml version="1.0" encoding="utf-8"?>
-<navigation
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nav_graph"
-    app:startDestination="@id/home_fragment">
+<!-- res/navigation/nav_graph.xml -->
 
-    <fragment android:id="@+id/home_fragment"
-        android:label="@string/home_fragment"
-        tools:layout="@layout/fragment_home"
-        android:name="com.seo.todayweather.ui.home.HomeFragment">
-        <action
-            android:id="@+id/action_home_fragment_to_commend_fragment"
-            app:destination="@id/commend_fragment" />
-        <action
-            android:id="@+id/action_home_fragment_to_style_fragment"
-            app:destination="@id/style_fragment" />
-        <action
-            android:id="@+id/action_home_fragment_to_mypage_fragment"
-            app:destination="@id/mypage_fragment" />
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.seo.todayweather.ui.home.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home">
+        <!-- Additional fragment configuration, if needed -->
     </fragment>
 
+    <fragment
+        android:id="@+id/commendFragment"
+        android:name="com.seo.todayweather.ui.commend.CommendFragment"
+        android:label="CommendFragment"
+        tools:layout="@layout/fragment_commend">
+        <!-- Additional fragment configuration, if needed -->
+    </fragment>
 
-    <fragment android:id="@+id/commend_fragment"
-        android:label="@string/commend_fragment"
-        tools:layout="@layout/fragment_commend"
-        android:name="com.seo.todayweather.ui.commend.CommendFragment"/>
+    <fragment
+        android:id="@+id/styleFragment"
+        android:name="com.seo.todayweather.ui.style.StyleFragment"
+        android:label="StyleFragment"
+        tools:layout="@layout/fragment_style">
+        <!-- Additional fragment configuration, if needed -->
+    </fragment>
 
+    <fragment
+        android:id="@+id/myPageFragment"
+        android:name="com.seo.todayweather.ui.mypage.MyPageFragment"
+        android:label="MyPageFragment"
+        tools:layout="@layout/fragment_my_page">
+        <!-- Additional fragment configuration, if needed -->
+    </fragment>
 
-    <fragment android:id="@+id/style_fragment"
-        android:label="@string/style_fragment"
-        tools:layout="@layout/fragment_style"
-        android:name="com.seo.todayweather.ui.style.StyleFragment"/>
-
-
-    <fragment android:id="@+id/mypage_fragment"
-        android:label="@string/mypage_fragment"
-        tools:layout="@layout/fragment_my_page"
-        android:name="com.seo.todayweather.ui.mypage.MyPageFragment"/>
+    <!-- Additional navigation paths, if needed -->
 
 </navigation>

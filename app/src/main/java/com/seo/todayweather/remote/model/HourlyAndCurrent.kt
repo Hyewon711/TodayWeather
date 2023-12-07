@@ -7,7 +7,7 @@ data class HourlyAndCurrent (
     var uvi: Double,
     var humidity: Int,
     var clouds: Int,
-    var wind_speed: Double,
     var visibility: Int,
+    var wind_speed: Double,
     var weather: ArrayList<DailyAndHourly>
 )

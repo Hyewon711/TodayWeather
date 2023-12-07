@@ -8,6 +8,7 @@ import androidx.core.view.WindowCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.seo.todayweather.R
 import com.seo.todayweather.databinding.ActivityInitBinding
+import com.seo.todayweather.util.common.PrefManager
 import com.seo.todayweather.util.extension.setOnAvoidDuplicateClickFlow
 
 class InitActivity : AppCompatActivity() {
@@ -33,15 +34,19 @@ class InitActivity : AppCompatActivity() {
             )
             ivStyle1.setOnAvoidDuplicateClickFlow {
                 styleClickEvent()
+                PrefManager.getInstance().selectStyle = 1
             }
             ivStyle2.setOnAvoidDuplicateClickFlow {
                 styleClickEvent()
+                PrefManager.getInstance().selectStyle = 2
             }
             ivStyle3.setOnAvoidDuplicateClickFlow {
                 styleClickEvent()
+                PrefManager.getInstance().selectStyle = 3
             }
             ivStyle4.setOnAvoidDuplicateClickFlow {
                 styleClickEvent()
+                PrefManager.getInstance().selectStyle = 4
             }
         }
         WindowCompat.setDecorFitsSystemWindows(window, false)

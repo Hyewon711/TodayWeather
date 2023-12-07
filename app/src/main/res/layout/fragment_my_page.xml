@@ -8,15 +8,25 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     tools:context=".ui.mypage.MyPageFragment">
-
-    <include
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/ly_toolbar"
-        layout="@layout/layout_toolbar_style"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_size"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/toolbar_background">
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="마이페이지"
+            android:textAppearance="@style/home_location"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_user_title"
         android:layout_width="150dp"

@@ -25,7 +25,6 @@ import java.util.concurrent.TimeUnit
 abstract class BaseFragment<VB : ViewBinding>(
     private val inflate: FragmentInflate<VB>,
 ) : Fragment() {
-    private lateinit var drawerLayout: DrawerLayout
     var _binding: VB? = null
     val binding get() = _binding!!
 

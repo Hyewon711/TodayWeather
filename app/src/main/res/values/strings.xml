@@ -40,6 +40,14 @@
     <string name="home_commend_title">이 옷 어때요?</string>
     <string name="home_content_title">오늘을 알려드려요</string>
 
+    <string name="home_weather_message80x">하늘이 흐린 상태에요.</string>
+    <string name="home_weather_message800">하늘이 깨끗하고 맑네요!</string>
+    <string name="home_weather_message70x">안개와 먼지에 주의하세요!</string>
+    <string name="home_weather_message60x">하얀 눈이 내리고 있어요.</string>
+    <string name="home_weather_message30x">외출 시 우산을 꼭 챙기세요.</string>
+    <string name="home_weather_message0">벼락에 주의하세요!</string>
+
+
     <!-- Firebase Storage URL -->
     <string name="storage_url">gs://todayweather-67667.appspot.com/</string>
 
@@ -47,6 +55,7 @@
     <string name="item_weather_date">7/11</string>
     <string name="item_weather_min_temp">0도</string>
     <string name="item_weather_max_temp">10도</string>
+
     <!-- CommendFragment -->
     <string name="commend_title">오늘 날씨에 어울리는 옷을 추천해드려요</string>
     <string name="commend_lowest_temp">최저기온</string>
@@ -67,6 +76,11 @@
     <!-- Style Item -->
     <string name="post_author">작성자</string>
     <string name="post_title">제목</string>
+    <string name="style_item_filter1">전체</string>
+    <string name="style_item_filter2">캐주얼</string>
+    <string name="style_item_filter3">댄디</string>
+    <string name="style_item_filter4">레트로</string>
+    <string name="style_item_filter5">스트릿</string>
 
     <!-- SettingsFragment -->
     <string name="settings_toolbar_title">설정</string>
