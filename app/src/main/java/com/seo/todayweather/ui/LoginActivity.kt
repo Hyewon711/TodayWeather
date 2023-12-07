@@ -141,7 +141,7 @@ class LoginActivity : AppCompatActivity() {
                         )
                         PrefManager.getInstance().getUserName = userData["name"]
                         PrefManager.getInstance().getUserImage = userData["profilePictureUrl"]
-
+                        PrefManager.getInstance().getUserId = user.id!!
                         CoroutineScope(Dispatchers.IO).launch {
                             try {
                                 user.id.let {

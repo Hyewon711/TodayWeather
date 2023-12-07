@@ -11,12 +11,12 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.seo.todayweather.data.SelectChip
 import com.seo.todayweather.databinding.InitBottomSheetBinding
+import com.seo.todayweather.util.common.PrefManager
 
 class InitBottomSheet : BottomSheetDialogFragment() {
     private lateinit var binding: InitBottomSheetBinding
     private lateinit var selectChip: ChipGroup
     private lateinit var getChipOrder: Button
-    var chipSelectedListener: ChipSelectedListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,14 +48,9 @@ class InitBottomSheet : BottomSheetDialogFragment() {
         }
 
         getChipOrder.setOnClickListener {
-            // Filter out unchecked chips before notifying the listener
-            onChipSelected(selectedChipsOrder)
+            PrefManager.getInstance().setSelectChipList(selectedChipsOrder)
             Toast.makeText(activity, "$selectedChipsOrder", Toast.LENGTH_SHORT).show()
             dismiss()
         }
-    }
-
-    private fun onChipSelected(chips: List<SelectChip>) {
-        chipSelectedListener?.onChipSelected(chips)
     }
 }

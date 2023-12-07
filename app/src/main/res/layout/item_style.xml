@@ -17,24 +17,45 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/ly_top"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/iv_user_image"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@color/primary_01"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:shapeAppearance="@style/ShapeAppearanceOverlay.App.CornerSize50Percent" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/home_horizontal_margin"
+                    android:text="@string/style_item_author"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_user_image"
+                    app:layout_constraintStart_toEndOf="@id/iv_user_image"
+                    app:layout_constraintTop_toTopOf="@id/iv_user_image" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
             <ImageView
                 android:id="@+id/iv_style"
                 android:layout_width="match_parent"
-                android:layout_height="194dp"
+                android:layout_height="200dp"
                 android:scaleType="centerCrop"
-                app:srcCompat="@drawable/ic_launcher_background"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/style_item_author"
-                app:layout_constraintTop_toTopOf="@id/iv_style"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/ly_top"
+                app:srcCompat="@drawable/ic_launcher_background"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -48,10 +69,10 @@
                     android:id="@+id/tv_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/style_item_author"
+                    android:text="@string/style_item_title"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>

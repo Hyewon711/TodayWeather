@@ -43,12 +43,11 @@ class CommendFragment : BaseFragment<FragmentCommendBinding>(FragmentCommendBind
 
     private fun initView() {
         with(binding) {
-            /* Style Fragment 이동 */
             lyCommend.setOnAvoidDuplicateClick {
-                commendFragment.changeFragment(this@CommendFragment, StyleFragment())
+
             }
             lyCommendTomorrow.setOnAvoidDuplicateClick {
-                commendFragment.changeFragment(this@CommendFragment, MyPageFragment())
+
             }
             btnRefresh.setOnAvoidDuplicateClick {
                 setWearView()

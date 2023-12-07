@@ -1,7 +1,6 @@
 package com.seo.todayweather.ui.home
 
 import android.annotation.SuppressLint
-import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.location.Location
 import android.speech.tts.TextToSpeech
@@ -13,6 +12,7 @@ import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -21,7 +21,6 @@ import coil.ImageLoader
 import coil.decode.SvgDecoder
 import coil.request.ImageRequest
 import com.bumptech.glide.Glide
-import com.bumptech.glide.annotation.GlideModule
 import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
@@ -43,13 +42,11 @@ import com.seo.todayweather.remote.model.Daily
 import com.seo.todayweather.remote.model.HourlyAndCurrent
 import com.seo.todayweather.ui.adapter.DailyWeatherAdapter
 import com.seo.todayweather.ui.adapter.HourlyWeatherAdapter
-import com.seo.todayweather.ui.commend.CommendFragment
-import com.seo.todayweather.ui.home.bottomsheet.ChipSelectedListener
 import com.seo.todayweather.ui.home.bottomsheet.InitBottomSheet
 import com.seo.todayweather.util.common.CurrentLocation
 import com.seo.todayweather.util.common.CurrentTemp
 import com.seo.todayweather.util.common.HOME
-import com.seo.todayweather.util.extension.changeFragment
+import com.seo.todayweather.util.common.PrefManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -58,12 +55,11 @@ import java.util.Locale
 
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate),
-    ChipSelectedListener, TextToSpeech.OnInitListener {
+    TextToSpeech.OnInitListener {
     private lateinit var initBottomSheet: InitBottomSheet
     lateinit var openWeatherHelper: OpenWeatherHelper
     lateinit var databaseHelper: DatabaseHelper
     private val storage: FirebaseStorage = Firebase.storage
-    private lateinit var addViewList: List<String>
     private lateinit var textToSpeech: TextToSpeech
 
     val TAG: String = "로그"
@@ -77,6 +73,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
     override fun onViewCreated() {
         getLocation()
+        getWeatherItem()
         initView()
         initViewFunctionOfCurrentData()
         initViewFunctionOfHourlyData()
@@ -97,23 +94,29 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         }
     }
 
+    private fun getWeatherItem() {
+        PrefManager.getInstance().selectChipListLiveData.observe(viewLifecycleOwner, Observer { chipList ->
+            if (chipList.isEmpty()) {
+                initBottomSheet.show(childFragmentManager, HOME)
+            } else {
+                onChipSelect(chipList)
+            }
+        })
+    }
+
     private fun initView() {
+        initBottomSheet = InitBottomSheet()
         textToSpeech = TextToSpeech(requireContext(), this@HomeFragment)
 
-        initBottomSheet = InitBottomSheet().apply {
-            chipSelectedListener = this@HomeFragment
-        }
-        initBottomSheet.show(childFragmentManager, HOME)
-
         with(binding) {
-            /* 위젯 관리 */
+            /* 상세 날씨 아이템 관리 */
             lyToolbar.ivSettings.setOnAvoidDuplicateClick {
+                clearAllViews()
                 initBottomSheet.show(childFragmentManager, HOME)
             }
 
-            /* Commend Fragment 이동 */
             lyCommend.setOnAvoidDuplicateClick {
-                homeLayout.changeFragment(this@HomeFragment, CommendFragment())
+
             }
             /* adapter 연결 */
             hourlyWeatherRecyclerView.apply {
@@ -272,7 +275,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                             getDrawable(requireContext(), R.drawable.home_weather_storm) // 뇌우
                         tvWeatherMessage.text = getString(R.string.home_weather_message0)
                     }
-                    speakText(tvWeatherMessage.text.toString())
+                    // 알림 설정 확인
+                    if (PrefManager.getInstance().getTTS) {
+                        speakText(tvWeatherMessage.text.toString())
+                    }
                 }
             }
             Glide.with(this)
@@ -380,7 +386,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
      * hourly 시간별 일기예보 데이터 API 응답의 response 데이터로 설정한다.
      */
 
-    override fun onChipSelected(chip: List<SelectChip>) {
+    fun onChipSelect(chip: List<SelectChip>) {
         // fragment에서는 viewLifecycleOwner 를 사용한다.
         // chip 선택으로 추가한 view는 roomDB 데이터를 불러온다.
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
@@ -448,6 +454,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                 }
             }
         }
+    }
+
+    private fun clearAllViews() {
+        val parentLayout1 = requireActivity().findViewById<LinearLayout>(R.id.ly_add_view1)
+        parentLayout1.removeAllViews()
+        val parentLayout2 = requireActivity().findViewById<LinearLayout>(R.id.ly_add_view2)
+        parentLayout2.removeAllViews()
+        val parentLayout3 = requireActivity().findViewById<LinearLayout>(R.id.ly_add_view3)
+        parentLayout3.removeAllViews()
     }
 
     private fun addView1(chipText: String, chipData: Number): LinearLayout {

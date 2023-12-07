@@ -41,7 +41,6 @@ class HourlyWeatherAdapter : RecyclerView.Adapter<HourlyWeatherAdapter.HourlyInf
 
     override fun onBindViewHolder(holder: HourlyInfo, position: Int) {
         with(holder.itemBinding) {
-            Log.d(TAG, "가져오는건 맞나? ${itemList[position].imageUri}")
             hourlyItemTimeTextView.text = itemList[position].time
             Glide.with(context)
                 .load(itemList[position].imageUri)

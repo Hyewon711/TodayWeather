@@ -1,15 +1,21 @@
 package com.seo.todayweather.ui.adapter
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DecodeFormat
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.seo.todayweather.data.StylePost
 import com.seo.todayweather.databinding.ItemStyleBinding
 
 class StyleRecyclerAdapter(private var items: List<StylePost>) :
     RecyclerView.Adapter<StyleRecyclerAdapter.PostInfo>() {
+    lateinit var context: Context
 
     inner class PostInfo(val itemBinding: ItemStyleBinding) :
         RecyclerView.ViewHolder(itemBinding.root) {
@@ -20,6 +26,7 @@ class StyleRecyclerAdapter(private var items: List<StylePost>) :
         parent: ViewGroup,
         viewType: Int
     ): PostInfo {
+        this.context = parent.context
         val binding =
             ItemStyleBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return PostInfo(binding)
@@ -36,6 +43,20 @@ class StyleRecyclerAdapter(private var items: List<StylePost>) :
             }
             postInfo.title.let {
                 tvTitle.text = it
+            }
+            postInfo.uri.let {
+                Glide.with(context)
+                    .load(it)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .apply(RequestOptions().format(DecodeFormat.PREFER_ARGB_8888))
+                    .into(ivStyle)
+            }
+            postInfo.userUri.let {
+                Glide.with(context)
+                    .load(it)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .apply(RequestOptions().format(DecodeFormat.PREFER_ARGB_8888))
+                    .into(ivUserImage)
             }
         }
     }

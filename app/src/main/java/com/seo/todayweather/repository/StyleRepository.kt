@@ -28,8 +28,8 @@ class StyleRepository @Inject constructor() {
         awaitClose { registration.remove() }
     }
 
-    suspend fun writeStylePost(userId: Int, userStyle: Int, userName: String, title: String, contents: String) {
-        val inputData = StylePost(id = userId, userStyle = userStyle, name = userName, title = title, content = contents)
+    suspend fun writeStylePost(userId: Long, userStyle: Int, userName: String, title: String, contents: String, uri: String, userUri: String) {
+        val inputData = StylePost(id = userId, userStyle = userStyle, name = userName, title = title, content = contents, uri = uri, userUri = userUri)
 
         try {
             val documentReference = FirestoreManager().styleCollectionRef.add(inputData).await()

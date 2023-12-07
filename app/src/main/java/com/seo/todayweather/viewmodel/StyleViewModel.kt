@@ -35,10 +35,10 @@ class StyleViewModel @Inject constructor(private val repository: StyleRepository
         }
     }
 
-    fun writeStylePost(userId: Int, userStyle: Int, userName: String, title: String, contents: String) {
+    fun writeStylePost(userId: Long, userStyle: Int, userName: String, title: String, contents: String, uri: String, userUri: String) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                repository.writeStylePost(userId, userStyle, userName, title, contents)
+                repository.writeStylePost(userId, userStyle, userName, title, contents, uri, userUri)
             } catch (e: Exception) {
                 Log.d(TAG, "writeStylePost Exception : $e")
             }
