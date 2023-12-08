@@ -27,8 +27,9 @@
                 app:layout_constraintTop_toTopOf="parent">
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/iv_user_image"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="@dimen/home_vertical_margin"
                     android:src="@color/primary_01"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

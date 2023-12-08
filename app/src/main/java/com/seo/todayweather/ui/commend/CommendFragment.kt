@@ -21,17 +21,16 @@ import com.seo.todayweather.data.StylePost
 import com.seo.todayweather.data.chooseOutfit
 import com.seo.todayweather.databinding.FragmentCommendBinding
 import com.seo.todayweather.ui.adapter.StyleRecyclerAdapter
-import com.seo.todayweather.ui.mypage.MyPageFragment
-import com.seo.todayweather.ui.style.StyleFragment
 import com.seo.todayweather.util.common.CurrentTemp.temp
+import com.seo.todayweather.util.common.PrefManager
 import com.seo.todayweather.util.common.TAG
-import com.seo.todayweather.util.extension.changeFragment
 import com.seo.todayweather.viewmodel.StyleViewModel
 import kotlinx.coroutines.launch
 
 class CommendFragment : BaseFragment<FragmentCommendBinding>(FragmentCommendBinding::inflate) {
     private val viewModel: StyleViewModel by activityViewModels()
     private val storage: FirebaseStorage = Firebase.storage
+    private lateinit var styleAdapter: StyleRecyclerAdapter
 
     override fun onCreateView() {
     }
@@ -151,7 +150,9 @@ class CommendFragment : BaseFragment<FragmentCommendBinding>(FragmentCommendBind
                     postList = it
                     with(binding.rvStyle) {
                         layoutManager = GridLayoutManager(activity, 2)
+                        styleAdapter = StyleRecyclerAdapter(viewModel.stylePosts.value)
                         adapter = StyleRecyclerAdapter(postList.take(4))
+                        styleAdapter.filterByCategory(PrefManager.getInstance().selectStyle)
                     }
                 }
             }

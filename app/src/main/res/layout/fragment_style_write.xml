@@ -69,11 +69,11 @@
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/iv_select_image"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="200dp"
                 android:layout_marginTop="@dimen/style_vertical_margin"
                 android:adjustViewBounds="true"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_launcher_background" />
+                android:padding="50dp"
+                android:src="@drawable/ic_gallery" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_title"
@@ -87,7 +87,7 @@
                     android:id="@+id/input_title_body"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="테스트" />
+                    android:hint="제목" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -100,7 +100,7 @@
                     android:id="@+id/input_contents_body"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="테스트" />
+                    android:hint="내용" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
     </ScrollView>

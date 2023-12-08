@@ -33,28 +33,35 @@ class InitActivity : AppCompatActivity() {
                 android.R.layout.simple_list_item_1
             )
             ivStyle1.setOnAvoidDuplicateClickFlow {
-                styleClickEvent()
+                styleClickEvent(1)
                 PrefManager.getInstance().selectStyle = 1
             }
             ivStyle2.setOnAvoidDuplicateClickFlow {
-                styleClickEvent()
+                styleClickEvent(2)
                 PrefManager.getInstance().selectStyle = 2
             }
             ivStyle3.setOnAvoidDuplicateClickFlow {
-                styleClickEvent()
+                styleClickEvent(3)
                 PrefManager.getInstance().selectStyle = 3
             }
             ivStyle4.setOnAvoidDuplicateClickFlow {
-                styleClickEvent()
+                styleClickEvent(4)
                 PrefManager.getInstance().selectStyle = 4
             }
         }
         WindowCompat.setDecorFitsSystemWindows(window, false)
     }
 
-    private fun styleClickEvent() {
+    private fun styleClickEvent(position: Int) {
+        var initDialogStyle: String = ""
+        when(position) {
+            1 -> initDialogStyle = getString(R.string.init_dialog_style1)
+            2 -> initDialogStyle = getString(R.string.init_dialog_style2)
+            3 -> initDialogStyle = getString(R.string.init_dialog_style3)
+            4 -> initDialogStyle = getString(R.string.init_dialog_style4)
+        }
         MaterialAlertDialogBuilder(this@InitActivity)
-            .setTitle(resources.getString(R.string.init_dialog_title))
+            .setTitle("$initDialogStyle ${getString(R.string.init_dialog_title)}")
             .setMessage(resources.getString(R.string.init_dialog_contents))
             .setNeutralButton(resources.getString(R.string.init_dialog_negative)) { dialog, which ->
                 // Respond to neutral button press

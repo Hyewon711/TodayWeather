@@ -28,10 +28,6 @@ class StyleFragment : BaseFragment<FragmentStyleBinding>(FragmentStyleBinding::i
 
     private fun initView() {
         with(binding) {
-            /* HomeFragment로 이동 */
-            lyToolbar.ivBack.setOnAvoidDuplicateClick {
-                styleFragment.changeFragment(this@StyleFragment, HomeFragment())
-            }
             /* StyleWriteFragment 이동 */
             lyToolbar.ivWrite.setOnAvoidDuplicateClick {
                 styleFragment.changeFragment(this@StyleFragment, StyleWriteFragment())

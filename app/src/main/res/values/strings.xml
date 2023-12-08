@@ -19,18 +19,16 @@
     <string name="init_title">선호하는 스타일을 선택해주세요</string>
     <string name="init_sub_title">나중에 마이페이지에서 수정할 수 있어요</string>
     <string name="init_menu">목록에서도 선택할 수 있어요</string>
-    <string name="init_dialog_title">Style1로 하시겠어요?</string>
-    <string name="init_dialog_contents">소개내용</string>
+    <string name="init_dialog_title"> 스타일로 하시겠어요?</string>
+    <string name="init_dialog_contents">마이페이지에서도 수정할 수 있어요</string>
     <string name="init_dialog_negative">닫기</string>
     <string name="init_dialog_positive">선택하기</string>
 
     <!-- InitActivity Style List -->
     <string name="init_dialog_style1">캐주얼</string>
-    <string name="init_dialog_style2">댄디</string>
-    <string name="init_dialog_style3">레트로</string>
-    <string name="init_dialog_style4">스트릿</string>
-    <string name="init_dialog_style5">아메카지</string>
-    <string name="init_dialog_style6">시크</string>
+    <string name="init_dialog_style2">시크</string>
+    <string name="init_dialog_style3">스포티</string>
+    <string name="init_dialog_style4">비즈니스</string>
 
     <!-- HomeFragment -->
     <string name="home_location_title">현재위치</string>
