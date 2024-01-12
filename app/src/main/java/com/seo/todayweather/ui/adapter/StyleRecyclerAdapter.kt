@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
+import com.seo.todayweather.R
 import com.seo.todayweather.data.StylePost
 import com.seo.todayweather.databinding.ItemStyleBinding
 
@@ -38,6 +39,16 @@ class StyleRecyclerAdapter(private var items: List<StylePost>) :
         val postInfo = items[position]
 
         with(holder.itemBinding) {
+            var flag = false
+            ivThumb.setOnClickListener {
+                flag = if(!flag) {
+                    ivThumb.setImageResource(R.drawable.ic_thumb_up_on)
+                    true
+                } else {
+                    ivThumb.setImageResource(R.drawable.ic_thumb_up_off)
+                    false
+                }
+            }
             postInfo.name.let {
                 tvName.text = it
             }

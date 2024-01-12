@@ -1,4 +1,4 @@
-package com.seo.todayweather.remote.model
+package com.seo.todayweather.util.model
 
 data class HourlyAndCurrent (
     var dt: Long,

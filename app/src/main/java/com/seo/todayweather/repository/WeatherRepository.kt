@@ -1,10 +1,10 @@
 package com.seo.todayweather.repository
 
 import retrofit2.Response
-import com.seo.todayweather.remote.api.WeatherApi
+import com.seo.todayweather.util.api.WeatherApi
 import javax.inject.Inject
 import javax.inject.Singleton
-import com.seo.todayweather.remote.model.Weather
+import com.seo.todayweather.util.model.Weather
 
 @Singleton
 class WeatherRepository @Inject constructor(

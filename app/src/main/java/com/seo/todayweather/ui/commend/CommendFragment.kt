@@ -2,6 +2,8 @@ package com.seo.todayweather.ui.commend
 
 import android.graphics.drawable.BitmapDrawable
 import android.util.Log
+import android.view.View
+import android.view.Window
 import android.widget.ImageView
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
@@ -24,7 +26,8 @@ import com.seo.todayweather.ui.adapter.StyleRecyclerAdapter
 import com.seo.todayweather.util.common.CurrentTemp.temp
 import com.seo.todayweather.util.common.PrefManager
 import com.seo.todayweather.util.common.TAG
-import com.seo.todayweather.viewmodel.StyleViewModel
+import com.seo.todayweather.ui.viewmodel.StyleViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class CommendFragment : BaseFragment<FragmentCommendBinding>(FragmentCommendBinding::inflate) {
@@ -34,7 +37,9 @@ class CommendFragment : BaseFragment<FragmentCommendBinding>(FragmentCommendBind
 
     override fun onCreateView() {
     }
+
     override fun onViewCreated() {
+        changeStatusBarTextColor(true)
         getStylePost()
         setWearView()
         initView()
@@ -49,7 +54,9 @@ class CommendFragment : BaseFragment<FragmentCommendBinding>(FragmentCommendBind
 
             }
             btnRefresh.setOnAvoidDuplicateClick {
-                setWearView()
+                lifecycleScope.launch {
+                    simulateLoadingProcess()
+                }
             }
         }
     }
@@ -157,5 +164,28 @@ class CommendFragment : BaseFragment<FragmentCommendBinding>(FragmentCommendBind
                 }
             }
         }
+    }
+
+    private fun changeStatusBarTextColor(isLight: Boolean) {
+        // Android 6.0 (API level 23) 이상에서만 동작
+        val window: Window? = activity?.window
+        if (isLight) {
+            // StatusBar 글씨색을 검은색으로 변경
+            window?.decorView?.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        } else {
+            // StatusBar 글씨색을 흰색으로 변경
+            window?.decorView?.systemUiVisibility = 0
+        }
+    }
+
+    private suspend fun simulateLoadingProcess() {
+        binding.progressBar.visibility = View.VISIBLE
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                setWearView()
+            }
+        }
+        delay(1000)
+        binding.progressBar.visibility = View.GONE
     }
 }

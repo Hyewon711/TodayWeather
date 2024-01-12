@@ -16,7 +16,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-
             <include
                 android:id="@+id/ly_toolbar"
                 layout="@layout/layout_toolbar"
@@ -44,7 +43,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ly_toolbar" />
 
-            <com.google.android.material.card.MaterialCardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            <com.google.android.material.card.MaterialCardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/ly_commend"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
@@ -62,6 +62,20 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="@dimen/home_horizontal_margin">
+                    <ProgressBar
+                        android:id="@+id/progress_bar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:indeterminate="true"
+                        android:max="100"
+                        android:progress="50"
+                        android:visibility="gone"
+                        android:progressBackgroundTint="#CCCCCC"
+                        android:progressTint="@color/primary_01"
+                        card_view:layout_constraintTop_toTopOf="parent"
+                        card_view:layout_constraintBottom_toBottomOf="parent"
+                        card_view:layout_constraintEnd_toEndOf="parent"
+                        card_view:layout_constraintStart_toStartOf="parent"/>
 
                     <ImageView
                         android:id="@+id/commend_item1"

@@ -42,7 +42,7 @@ abstract class BaseFragment<VB : ViewBinding>(
         savedInstanceState: Bundle?,
     ): View? {
         _binding = inflate.invoke(inflater, container, false)
-        if (savedInstanceState == null) { // onSaveInstanceState로 데이터를 넘긴 것이 있다면 null이 아니므로 작동X -> onSaveInstanceState 전에 한번만 호출되었으면 하는 것
+        if (savedInstanceState == null) {
             savedInstanceStateOnCreateView()
         }
         return binding.root
@@ -71,7 +71,7 @@ abstract class BaseFragment<VB : ViewBinding>(
         compositeDisposable
             .add(
                 this.clicks()
-                    .observeOn(Schedulers.io()) // 이후 chain의 메서드들은 쓰레드 io 영역에서 처리
+                    .observeOn(Schedulers.io()) // io 영역에서 처리
                     .throttleFirst(CLICK_INTERVAL_TIME, TimeUnit.MILLISECONDS)
                     .observeOn(AndroidSchedulers.mainThread()) // 이후 chain의 메서드들은 쓰레드 main 영역에서 처리
                     .subscribe(

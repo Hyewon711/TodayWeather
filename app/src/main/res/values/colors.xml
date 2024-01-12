@@ -9,4 +9,7 @@
     <color name="error">#FF2828</color>
     <color name="text_hint">#818181</color>
     <color name="light_gray">#BFBFBF</color>
+    <color name="custom_spinner_text_color">#FF00A3FF</color>
+    <color name="custom_spinner_dropdown_background">#FFFFFFFF</color>
+    <color name="custom_spinner_background_color">#FFFFFFFF</color>
 </resources>

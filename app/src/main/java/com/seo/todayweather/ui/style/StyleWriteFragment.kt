@@ -1,6 +1,7 @@
 package com.seo.todayweather.ui.style
 
 import android.net.Uri
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -10,14 +11,16 @@ import com.seo.todayweather.base.BaseFragment
 import com.seo.todayweather.databinding.FragmentStyleWriteBinding
 import com.seo.todayweather.util.common.PrefManager
 import com.seo.todayweather.util.extension.changeFragment
-import com.seo.todayweather.viewmodel.StyleViewModel
+import com.seo.todayweather.ui.viewmodel.StyleViewModel
 
 class StyleWriteFragment :
     BaseFragment<FragmentStyleWriteBinding>(FragmentStyleWriteBinding::inflate) {
     private val viewModel: StyleViewModel by activityViewModels()
     private lateinit var getContent: ActivityResultLauncher<String>
     private var selectedImageUri: Uri? = null
-
+    override fun onCreateView() {
+        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+    }
     override fun onViewCreated() {
         initView()
     }

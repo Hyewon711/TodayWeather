@@ -1,4 +1,4 @@
-package com.seo.todayweather.remote.helper
+package com.seo.todayweather.util.helper
 
 import android.content.Context
 import android.util.Log
@@ -7,10 +7,10 @@ import com.seo.todayweather.R
 import com.seo.todayweather.data.room.CurrentEntity
 import com.seo.todayweather.data.room.DailyEntity
 import com.seo.todayweather.data.room.HourlyEntity
-import com.seo.todayweather.remote.api.OpenWeatherAPI
-import com.seo.todayweather.remote.model.Daily
-import com.seo.todayweather.remote.model.HourlyAndCurrent
-import com.seo.todayweather.remote.model.OpenWeather
+import com.seo.todayweather.util.api.OpenWeatherAPI
+import com.seo.todayweather.util.model.Daily
+import com.seo.todayweather.util.model.HourlyAndCurrent
+import com.seo.todayweather.util.model.OpenWeather
 import com.seo.todayweather.util.common.TAG
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

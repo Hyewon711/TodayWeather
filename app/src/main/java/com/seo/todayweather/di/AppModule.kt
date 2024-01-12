@@ -1,7 +1,7 @@
 package com.seo.todayweather.di
 
-import com.seo.todayweather.remote.api.Constants.Companion.BASE_URL
-import com.seo.todayweather.remote.api.WeatherApi
+import com.seo.todayweather.util.api.Constants.Companion.BASE_URL
+import com.seo.todayweather.util.api.WeatherApi
 import com.seo.todayweather.ui.style.FirestoreManager
 import dagger.Module
 import dagger.Provides

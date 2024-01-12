@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.Toast
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
@@ -30,6 +29,8 @@ class InitBottomSheet : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val selectedChipsOrder = mutableListOf<SelectChip>()
+        dialog?.setCanceledOnTouchOutside(false)
+
         with(binding) {
             selectChip = chipGroup
             getChipOrder = getOrderButton
@@ -39,9 +40,9 @@ class InitBottomSheet : BottomSheetDialogFragment() {
 
                 chip.setOnCheckedChangeListener { _, isChecked ->
                     if (isChecked) {
-                        selectedChipsOrder.add(SelectChip(i, chip.text.toString(),0))
+                        selectedChipsOrder.add(SelectChip(i, chip.text.toString(), 0))
                     } else {
-                        selectedChipsOrder.remove(SelectChip(i, chip.text.toString(),0))
+                        selectedChipsOrder.remove(SelectChip(i, chip.text.toString(), 0))
                     }
                 }
             }
@@ -49,7 +50,6 @@ class InitBottomSheet : BottomSheetDialogFragment() {
 
         getChipOrder.setOnClickListener {
             PrefManager.getInstance().setSelectChipList(selectedChipsOrder)
-            Toast.makeText(activity, "$selectedChipsOrder", Toast.LENGTH_SHORT).show()
             dismiss()
         }
     }

@@ -5,9 +5,11 @@ import android.graphics.drawable.BitmapDrawable
 import android.location.Location
 import android.speech.tts.TextToSpeech
 import android.util.Log
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.Space
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -36,10 +38,10 @@ import com.seo.todayweather.data.HourlyItem
 import com.seo.todayweather.data.SelectChip
 import com.seo.todayweather.data.chooseOutfit
 import com.seo.todayweather.databinding.FragmentHomeBinding
-import com.seo.todayweather.remote.helper.DatabaseHelper
-import com.seo.todayweather.remote.helper.OpenWeatherHelper
-import com.seo.todayweather.remote.model.Daily
-import com.seo.todayweather.remote.model.HourlyAndCurrent
+import com.seo.todayweather.util.helper.DatabaseHelper
+import com.seo.todayweather.util.helper.OpenWeatherHelper
+import com.seo.todayweather.util.model.Daily
+import com.seo.todayweather.util.model.HourlyAndCurrent
 import com.seo.todayweather.ui.adapter.DailyWeatherAdapter
 import com.seo.todayweather.ui.adapter.HourlyWeatherAdapter
 import com.seo.todayweather.ui.home.bottomsheet.InitBottomSheet
@@ -49,6 +51,7 @@ import com.seo.todayweather.util.common.HOME
 import com.seo.todayweather.util.common.PrefManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -97,8 +100,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     private fun getWeatherItem() {
         PrefManager.getInstance().selectChipListLiveData.observe(viewLifecycleOwner, Observer { chipList ->
             if (chipList.isEmpty()) {
-                initBottomSheet.show(childFragmentManager, HOME)
+                binding.lyEmpty.visibility = View.VISIBLE
             } else {
+                binding.lyEmpty.visibility = View.GONE
                 onChipSelect(chipList)
             }
         })
@@ -111,6 +115,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         with(binding) {
             /* 상세 날씨 아이템 관리 */
             lyToolbar.ivSettings.setOnAvoidDuplicateClick {
+                clearAllViews()
+                initBottomSheet.show(childFragmentManager, HOME)
+            }
+            lyEmpty.setOnAvoidDuplicateClick {
                 clearAllViews()
                 initBottomSheet.show(childFragmentManager, HOME)
             }
@@ -388,7 +396,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
     fun onChipSelect(chip: List<SelectChip>) {
         // fragment에서는 viewLifecycleOwner 를 사용한다.
-        // chip 선택으로 추가한 view는 roomDB 데이터를 불러온다.
+        // chip 선택으로 추가한 view는 roomDB데이터를  불러온다.
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 if (databaseHelper.hourlyDao().getHourly().isNotEmpty()) {
@@ -420,6 +428,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
                     Log.d(TAG, "onChipSelected: $chip")
                     when (chip.size) {
+                        0 -> binding.lyEmpty.visibility = View.VISIBLE
                         1 -> addView1(chip[0].name, chip[0].additionalData)
                         2 -> {
                             addView1(chip[0].name, chip[0].additionalData)
@@ -564,6 +573,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         cardView2.findViewById<TextView>(R.id.tv_data).text = chipData1.toString()
         setLayoutParamsShort(cardView2)
         itemContainer.addView(cardView2)
+
+        // Space 추가 (여백)
+        val space = Space(requireContext())
+        space.layoutParams = LinearLayout.LayoutParams(
+            marginInPixels,
+            ViewGroup.LayoutParams.MATCH_PARENT
+        )
+        itemContainer.addView(space)
 
         // 아이템 3
         val cardView3 =

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="10dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -8,7 +10,8 @@
         android:id="@+id/card_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        app:strokeColor="@color/light_gray"
+        app:strokeWidth="2px"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -40,7 +43,7 @@
                     android:id="@+id/tv_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/home_horizontal_margin"
+                    android:layout_marginStart="@dimen/home_vertical_margin"
                     android:text="@string/style_item_author"
                     app:layout_constraintBottom_toBottomOf="@id/iv_user_image"
                     app:layout_constraintStart_toEndOf="@id/iv_user_image"
@@ -57,6 +60,14 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ly_top"
                 app:srcCompat="@drawable/ic_launcher_background"/>
+            <ImageView
+                android:id="@+id/iv_thumb"
+                android:src="@drawable/ic_thumb_up_off"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/iv_style"
+                android:layout_margin="@dimen/home_vertical_margin"
+                android:layout_width="30dp"
+                android:layout_height="30dp"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -68,9 +79,12 @@
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
                     android:text="@string/style_item_title"
+                    android:maxLines="2"
+                    android:padding="@dimen/home_vertical_margin"
+                    android:gravity="center"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

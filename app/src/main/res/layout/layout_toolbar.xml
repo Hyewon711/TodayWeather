@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/toolbar"
+    android:layout_marginTop="@dimen/home_vertical_margin"
     android:layout_width="match_parent"
     android:layout_height="@dimen/toolbar_size">
 
@@ -17,7 +18,7 @@
             android:layout_height="?attr/actionBarSize"
             android:clickable="true"
             android:focusable="true"
-            android:src="@drawable/ic_settings"
+            android:src="@drawable/ic_add_circle"
             android:padding="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

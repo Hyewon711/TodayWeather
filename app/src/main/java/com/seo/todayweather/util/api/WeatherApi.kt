@@ -1,7 +1,7 @@
-package com.seo.todayweather.remote.api
+package com.seo.todayweather.util.api
 
 import com.seo.todayweather.BuildConfig
-import com.seo.todayweather.remote.model.Weather
+import com.seo.todayweather.util.model.Weather
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

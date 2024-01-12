@@ -1,9 +1,9 @@
-package com.seo.todayweather.viewmodel
+package com.seo.todayweather.ui.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.seo.todayweather.remote.model.Weather
+import com.seo.todayweather.util.model.Weather
 import com.seo.todayweather.repository.WeatherRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

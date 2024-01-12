@@ -13,7 +13,7 @@ import com.seo.todayweather.ui.adapter.StyleRecyclerAdapter
 import com.seo.todayweather.ui.home.HomeFragment
 import com.seo.todayweather.util.common.TAG
 import com.seo.todayweather.util.extension.changeFragment
-import com.seo.todayweather.viewmodel.StyleViewModel
+import com.seo.todayweather.ui.viewmodel.StyleViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

@@ -1,4 +1,4 @@
-package com.seo.todayweather.remote.helper
+package com.seo.todayweather.util.helper
 
 import android.content.Context
 import androidx.room.Database

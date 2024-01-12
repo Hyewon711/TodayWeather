@@ -1,8 +1,8 @@
-package com.seo.todayweather.remote.helper
+package com.seo.todayweather.util.helper
 
 import android.content.Context
 import com.seo.todayweather.R
-import com.seo.todayweather.remote.api.OpenWeatherAPI
+import com.seo.todayweather.util.api.OpenWeatherAPI
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.UnsupportedEncodingException

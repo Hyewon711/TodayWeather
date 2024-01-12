@@ -2,11 +2,13 @@ package com.seo.todayweather.ui.mypage
 
 import android.content.Intent
 import android.util.Log
+import android.widget.ArrayAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.kakao.sdk.user.UserApiClient
+import com.seo.todayweather.R
 import com.seo.todayweather.base.BaseFragment
 import com.seo.todayweather.databinding.FragmentMyPageBinding
 import com.seo.todayweather.ui.LoginActivity
@@ -45,6 +47,13 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(FragmentMyPageBinding
             switchTts.setOnCheckedChangeListener { _, _ ->
                 // Switch 상태 변경 시 SharedPreferences에 저장
                 PrefManager.getInstance().getTTS = switchTts.isChecked
+            }
+            spinnerStyle.adapter = context?.let {
+                ArrayAdapter.createFromResource(
+                    it,
+                    R.array.artist_types,
+                    android.R.layout.simple_list_item_1
+                )
             }
         }
     }

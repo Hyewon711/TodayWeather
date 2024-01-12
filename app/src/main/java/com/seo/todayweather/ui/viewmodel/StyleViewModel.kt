@@ -1,4 +1,4 @@
-package com.seo.todayweather.viewmodel
+package com.seo.todayweather.ui.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.LiveData

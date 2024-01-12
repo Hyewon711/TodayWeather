@@ -1,6 +1,6 @@
-package com.seo.todayweather.remote.api
+package com.seo.todayweather.util.api
 
-import com.seo.todayweather.remote.model.OpenWeather
+import com.seo.todayweather.util.model.OpenWeather
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query

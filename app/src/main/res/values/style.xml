@@ -65,13 +65,13 @@
 
     <!-- MyPage Style -->
     <style name="mypage_user_name">
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/black</item>
     </style>
 
     <!-- MyPage Style -->
     <style name="mypage_system_settings">
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/black</item>
     </style>
 
@@ -111,4 +111,12 @@
         <item name="errorTextColor">@color/error</item>
         <item name="errorEnabled">true</item>
     </style>
+
+    <!-- spinner -->
+    <style name="SpinnerStyle" parent="Widget.AppCompat.Spinner">
+        <item name="android:background">@drawable/spinner_dropdown</item>
+        <item name="android:popupBackground">@color/custom_spinner_dropdown_background</item>
+        <item name="android:textColor">@color/custom_spinner_text_color</item>
+    </style>
+
 </resources>
